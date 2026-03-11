@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>মনোবিজ্ঞান মাস্টারক্লাস</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface2: #1a1a26;
+    --border: #2a2a3d;
+    --accent: #6c63ff;
+    --accent2: #ff6584;
+    --accent3: #43e97b;
+    --accent4: #f7971e;
+    --text: #e8e8f0;
+    --text-dim: #9090b0;
+    --text-bright: #ffffff;
+    --gold: #ffd700;
+  }
+  .lang-en { display: none; }
+  .lang-bn { display: block; }
+  body.en .lang-en { display: block; }
+  body.en .lang-bn { display: none; }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Hind Siliguri', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* Noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    letter-spacing: 1px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0.2rem;
+    list-style: none;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .nav-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.78rem;
+    padding: 0.4rem 0.7rem;
+    border-radius: 6px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-links a:hover {
+    color: var(--text-bright);
+    background: var(--surface2);
+  }
+
+  .lang-toggle {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 0.8rem;
+    transition: all 0.3s;
+    margin-left: 1rem;
+  }
+  .lang-toggle:hover { background: #5a52e0; transform: scale(1.05); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(108,99,255,0.15) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 6s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(108,99,255,0.2), rgba(255,101,132,0.2));
+    border: 1px solid rgba(108,99,255,0.4);
+    padding: 0.4rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #fff 0%, #c8c0ff 50%, #ff6584 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    max-width: 600px;
+    margin: 0 auto 3rem;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--accent);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 5rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .section-tag {
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    color: var(--text-bright);
+    margin-bottom: 1rem;
+  }
+
+  .section-sub {
+    color: var(--text-dim);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* CATEGORY CARDS */
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .cat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cat-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border-radius: 16px;
+  }
+
+  .cat-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 20px 60px rgba(108,99,255,0.2);
+  }
+
+  .cat-card:hover::before { opacity: 1; }
+
+  .cat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .cat-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--text-bright);
+    margin-bottom: 0.5rem;
+  }
+
+  .cat-desc {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  .cat-count {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.7rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* TOPIC CARDS */
+  .topics-container {
+    display: none;
+    margin-top: 2rem;
+  }
+
+  .topics-container.active { display: block; }
+
+  .topic-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .topic-header {
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .topic-header:hover { background: var(--surface2); }
+
+  .topic-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .topic-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    background: rgba(108,99,255,0.1);
+    border: 1px solid rgba(108,99,255,0.3);
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    min-width: 40px;
+    text-align: center;
+  }
+
+  .topic-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-bright);
+  }
+
+  .topic-arrow {
+    color: var(--text-dim);
+    transition: transform 0.3s;
+    font-size: 1.2rem;
+  }
+
+  .topic-card.open .topic-arrow { transform: rotate(180deg); }
+
+  .topic-body {
+    display: none;
+    padding: 0 2rem 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .topic-card.open .topic-body { display: block; }
+
+  .topic-def {
+    background: linear-gradient(135deg, rgba(108,99,255,0.08), rgba(255,101,132,0.05));
+    border-left: 3px solid var(--accent);
+    padding: 1rem 1.5rem;
+    border-radius: 0 8px 8px 0;
+    margin: 1.5rem 0 1rem;
+    font-style: italic;
+    color: var(--text);
+  }
+
+  .topic-body h4 {
+    color: var(--accent2);
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 1.5rem 0 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .topic-body p {
+    color: var(--text-dim);
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+
+  .example-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    margin: 0.8rem 0;
+  }
+
+  .example-box .ex-label {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent3);
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+
+  .example-box p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+
+  .use-positive {
+    background: rgba(67,233,123,0.08);
+    border: 1px solid rgba(67,233,123,0.25);
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .use-positive .up-label {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent3);
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .use-positive p { margin: 0; color: var(--text); font-size: 0.9rem; }
+
+  /* PROGRESS */
+  .progress-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    margin: 3rem 0;
+    text-align: center;
+  }
+
+  .progress-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--text-bright);
+    margin-bottom: 0.5rem;
+  }
+
+  .progress-sub {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+  }
+
+  .progress-bar-wrap {
+    background: var(--surface2);
+    border-radius: 20px;
+    height: 12px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 20px;
+    width: 0%;
+    transition: width 1s ease;
+  }
+
+  .progress-text {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent);
+    font-size: 1.2rem;
+  }
+
+  /* DIVIDER */
+  .full-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border);
+  }
+
+  footer span {
+    color: var(--accent2);
+  }
+
+  /* SCROLL TO TOP */
+  .scroll-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--accent);
+    color: white;
+    border: none;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(108,99,255,0.4);
+    transition: all 0.3s;
+    z-index: 999;
+  }
+
+  .scroll-top:hover { transform: scale(1.1); }
+  .scroll-top.visible { display: flex; }
+
+  /* SEARCH */
+  .search-wrap {
+    max-width: 500px;
+    margin: 0 auto 3rem;
+    position: relative;
+  }
+
+  .search-input {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 0.9rem 1.5rem 0.9rem 3rem;
+    color: var(--text);
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-input:focus { border-color: var(--accent); }
+  .search-input::placeholder { color: var(--text-dim); }
+
+  .search-icon {
+    position: absolute;
+    left: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dim);
+  }
+
+  /* HIGHLIGHT */
+  mark {
+    background: rgba(108,99,255,0.3);
+    color: var(--text-bright);
+    border-radius: 3px;
+    padding: 0 2px;
+  }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hero-stats { gap: 2rem; }
+    section { padding: 3rem 1rem; }
+  }
+
+  /* Animate in */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .cat-card, .topic-card {
+    animation: fadeUp 0.5s ease both;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">🧠 মনোবিজ্ঞান</div>
+  <ul class="nav-links">
+    <li><a href="#influence">প্রভাব</a></li>
+    <li><a href="#cognitive">চিন্তার ফাঁদ</a></li>
+    <li><a href="#emotion">আবেগ</a></li>
+    <li><a href="#social">সামাজিক</a></li>
+    <li><a href="#motivation">অনুপ্রেরণা</a></li>
+    <li><a href="#dark">ডার্ক সাইকোলজি</a></li>
+    <li><a href="#therapy">থেরাপি</a></li>
+    <li><a href="#neuro">নিউরো</a></li>
+  </ul>
+  <button class="lang-toggle" onclick="toggleLang()">🌐 English</button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-badge lang-bn">সম্পূর্ণ মনোবিজ্ঞান গাইড</span>
+  <span class="hero-badge lang-en" style="display:none">Complete Psychology Guide</span>
+
+  <h1 class="lang-bn">মনের গভীরে<br>প্রবেশ করো</h1>
+  <h1 class="lang-en" style="display:none">Enter the<br>Depths of Mind</h1>
+
+  <p class="lang-bn">মানব মনোবিজ্ঞানের সম্পূর্ণ জ্ঞানভাণ্ডার। প্রতিটি টপিক বিস্তারিত, উদাহরণ সহ — যেন তুমি নিজেই একজন মনোবিজ্ঞানী হয়ে উঠতে পারো।</p>
+  <p class="lang-en" style="display:none">Complete knowledge of human psychology. Every topic detailed with examples — so you can become a psychologist yourself.</p>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-num">৮+</span>
+      <span class="stat-label lang-bn">বিভাগ</span>
+      <span class="stat-label lang-en" style="display:none">Categories</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">৬০+</span>
+      <span class="stat-label lang-bn">টপিক</span>
+      <span class="stat-label lang-en" style="display:none">Topics</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">∞</span>
+      <span class="stat-label lang-bn">জ্ঞান</span>
+      <span class="stat-label lang-en" style="display:none">Knowledge</span>
+    </div>
+  </div>
+</div>
+
+<hr class="full-divider">
+
+<!-- MAIN CONTENT -->
+<section>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" class="search-input" id="searchInput" placeholder="টপিক খুঁজুন..." oninput="searchTopics(this.value)">
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-section">
+    <div class="progress-title lang-bn">তোমার অগ্রগতি</div>
+    <div class="progress-title lang-en" style="display:none">Your Progress</div>
+    <div class="progress-sub lang-bn">কতগুলো টপিক পড়েছো</div>
+    <div class="progress-sub lang-en" style="display:none">Topics you've read</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="progress-text" id="progressText">0 / 60</div>
+  </div>
+
+  <!-- CATEGORY 1: INFLUENCE -->
+  <div id="influence" class="section-header">
+    <span class="section-tag">01</span>
+    <h2 class="section-title lang-bn">প্রভাব ও ম্যানিপুলেশন</h2>
+    <h2 class="section-title lang-en" style="display:none">Influence & Manipulation</h2>
+    <p class="section-sub lang-bn">মানুষকে প্রভাবিত করার মূল কৌশলগুলো — ভালো ও খারাপ উভয় দিক সহ</p>
+    <p class="section-sub lang-en" style="display:none">Core techniques of influencing people — both positive and negative sides</p>
+  </div>
+
+  <div class="topics-container active" id="influence-topics">
+
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">01</span>
+          <span class="topic-name lang-bn">Reciprocity — পারস্পরিক বাধ্যবাধকতা</span>
+          <span class="topic-name lang-en" style="display:none">Reciprocity</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">কেউ আমাদের কিছু দিলে আমরা ফিরিয়ে দিতে বাধ্য বোধ করি — এটাই Reciprocity।</div>
+        <div class="topic-def lang-en" style="display:none">When someone gives us something, we feel obligated to give back — this is Reciprocity.</div>
+        <h4 lang-bn>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">Robert Cialdini তাঁর "Influence" বইয়ে দেখান যে মানুষ স্বাভাবিকভাবেই কৃতজ্ঞতার ঋণ শোধ করতে চায়। এমনকি ছোট উপহারও বড় পরিবর্তন আনতে পারে।</p>
+        <p class="lang-en" style="display:none">Robert Cialdini showed in "Influence" that people naturally want to repay debts of gratitude. Even small gifts can bring big changes.</p>
+        <div class="example-box">
+          <span class="ex-label">উদাহরণ</span>
+          <p class="lang-bn">রেস্তোরাঁয় bill এর সাথে candy দিলে tip ১৪% বাড়ে। Supermarket এ free sample দিলে sales ৯০০% বাড়ে।</p>
+          <p class="lang-en" style="display:none">Giving candy with restaurant bill increases tips by 14%. Free samples in supermarkets increase sales by 900%.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ ইতিবাচক ব্যবহার</span>
+          <p class="lang-bn">আগে মানুষকে genuine সাহায্য করো, knowledge শেয়ার করো। তারপর তোমার কোনো request করলে তারা সাড়া দেবে।</p>
+          <p class="lang-en" style="display:none">First genuinely help people, share knowledge. Then when you make a request, they'll respond.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">02</span>
+          <span class="topic-name lang-bn">Social Proof — সামাজিক প্রমাণ</span>
+          <span class="topic-name lang-en" style="display:none">Social Proof</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">অন্যরা যা করছে আমরাও তাই করি — বিশেষত যখন অনিশ্চিত থাকি।</div>
+        <div class="topic-def lang-en" style="display:none">We do what others are doing — especially when we're uncertain.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">মানুষ ধরে নেয় যদি অনেকে কিছু করে, তাহলে সেটা সঠিক। ১০০০ জনের review আছে এমন product কিনতে আমরা বেশি comfortable।</p>
+        <p class="lang-en" style="display:none">People assume if many do something, it must be right. We're more comfortable buying a product with 1000 reviews.</p>
+        <div class="example-box">
+          <span class="ex-label">উদাহরণ</span>
+          <p class="lang-bn">YouTube এ "১০ লাখ view" দেখলে ভিডিও দেখতে আগ্রহ বাড়ে। রেস্তোরাঁর বাইরে লম্বা লাইন দেখলে মনে হয় খাবার ভালো।</p>
+          <p class="lang-en" style="display:none">Seeing "1 million views" on YouTube increases interest. A long line outside a restaurant signals good food.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ ইতিবাচক ব্যবহার</span>
+          <p class="lang-bn">তোমার ভালো কাজের testimonial, success story শেয়ার করো। Community তৈরি করো যেখানে ভালো মানুষরা একসাথে কাজ করছে।</p>
+          <p class="lang-en" style="display:none">Share testimonials and success stories of your good work. Build a community where good people work together.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">03</span>
+          <span class="topic-name lang-bn">Scarcity — দুষ্প্রাপ্যতার নীতি</span>
+          <span class="topic-name lang-en" style="display:none">Scarcity Principle</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">যা কম পাওয়া যায়, তার মূল্য বেশি মনে হয়।</div>
+        <div class="topic-def lang-en" style="display:none">What is harder to obtain seems more valuable.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">মানুষ সুযোগ হারানোর ভয়ে কাজ করে। "মাত্র ৩টি বাকি" বা "আজ রাত ১২টা পর্যন্ত" — এই ধরনের বার্তা দ্রুত সিদ্ধান্ত নিতে বাধ্য করে।</p>
+        <p class="lang-en" style="display:none">People act out of fear of missing out. Messages like "Only 3 left" or "Until midnight tonight" force quick decisions.</p>
+        <div class="example-box">
+          <span class="ex-label">উদাহরণ</span>
+          <p class="lang-bn">Booking.com: "এই হোটেলে ৮ জন এখন দেখছে, মাত্র ২টি রুম বাকি।" এটা দেখে মানুষ তাড়াতাড়ি book করে।</p>
+          <p class="lang-en" style="display:none">Booking.com: "8 people are viewing this hotel, only 2 rooms left." People book quickly seeing this.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ ইতিবাচক ব্যবহার</span>
+          <p class="lang-bn">Real deadline দাও। যেমন: "এই সুযোগে ভালো কাজে যোগ দাও, সীমিত সময়।" কিন্তু মিথ্যা scarcity তৈরি করো না।</p>
+          <p class="lang-en" style="display:none">Give real deadlines. Like: "Join this good cause in limited time." But never create false scarcity.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">04</span>
+          <span class="topic-name lang-bn">Authority Bias — কর্তৃত্বের প্রভাব</span>
+          <span class="topic-name lang-en" style="display:none">Authority Bias</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">বিশেষজ্ঞ বা কর্তৃপক্ষ যা বলে, আমরা সেটা বেশি বিশ্বাস করি।</div>
+        <div class="topic-def lang-en" style="display:none">We tend to believe what experts or authority figures say more readily.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">Milgram এর বিখ্যাত experiment এ দেখা গেছে মানুষ authority figure এর আদেশে অকল্পনীয় কাজ করতে পারে। Doctor, professor, CEO — এদের কথায় মানুষ প্রশ্ন কম করে।</p>
+        <p class="lang-en" style="display:none">Milgram's famous experiment showed people can do unimaginable things on authority's orders. People question less what doctors, professors, CEOs say.</p>
+        <div class="example-box">
+          <span class="ex-label">উদাহরণ</span>
+          <p class="lang-bn">"৯ জনের মধ্যে ৮ জন ডাক্তার এই toothpaste recommend করেন।" — এই ধরনের বার্তা কাজ করে।</p>
+          <p class="lang-en" style="display:none">"8 out of 9 dentists recommend this toothpaste." — This type of message works.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ ইতিবাচক ব্যবহার</span>
+          <p class="lang-bn">নিজের expertise তৈরি করো। সৎভাবে credential শেয়ার করো। Expert দের সাথে কাজ করো।</p>
+          <p class="lang-en" style="display:none">Build your own expertise. Honestly share credentials. Work with experts.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">05</span>
+          <span class="topic-name lang-bn">Foot-in-the-Door — ছোট হ্যাঁ থেকে বড় হ্যাঁ</span>
+          <span class="topic-name lang-en" style="display:none">Foot-in-the-Door Technique</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">প্রথমে ছোট request করো, পরে বড় request করো — মানুষ রাজি হওয়ার সম্ভাবনা বেশি।</div>
+        <div class="topic-def lang-en" style="display:none">First make a small request, then a larger one — people are more likely to agree.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">প্রথম ছোট "হ্যাঁ" এর পর মানুষ নিজের image consistent রাখতে চায়। "আমি একজন helpful person" — এই identity তৈরি হলে পরে বড় সাহায্য করতেও রাজি।</p>
+        <p class="lang-en" style="display:none">After the first small "yes," people want to keep their image consistent. Once the identity "I am a helpful person" forms, they agree to bigger help.</p>
+        <div class="example-box">
+          <span class="ex-label">উদাহরণ</span>
+          <p class="lang-bn">আগে বলো "আজকে শুধু ৫ মিনিট exercise করবে?" → হ্যাঁ। পরে: "এখন রোজ ৩০ মিনিট করবে?" → রাজি।</p>
+          <p class="lang-en" style="display:none">First say "Will you exercise just 5 minutes today?" → Yes. Then: "Now will you do 30 minutes daily?" → Agreed.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ ইতিবাচক ব্যবহার</span>
+          <p class="lang-bn">Habit তৈরিতে সবচেয়ে কার্যকর। ছোট ভালো কাজ দিয়ে শুরু করাও, ধীরে ধীরে বড় পরিবর্তন আসবে।</p>
+          <p class="lang-en" style="display:none">Most effective for building habits. Start with small good deeds, big changes will come gradually.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">06</span>
+          <span class="topic-name lang-bn">Intermittent Reinforcement — অনিয়মিত পুরস্কার</span>
+          <span class="topic-name lang-en" style="display:none">Intermittent Reinforcement</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">অনিশ্চিত পুরস্কার নিশ্চিত পুরস্কারের চেয়ে বেশি আসক্তি তৈরি করে।</div>
+        <div class="topic-def lang-en" style="display:none">Uncertain rewards create more addiction than certain rewards.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">B.F. Skinner এর research এ দেখা গেছে কখনো reward কখনো না — এই pattern সবচেয়ে বেশি behavior reinforce করে। Dopamine তখনই সবচেয়ে বেশি release হয় যখন reward আসবে কিনা জানা নেই।</p>
+        <p class="lang-en" style="display:none">B.F. Skinner's research showed sometimes reward sometimes not — this pattern reinforces behavior most. Dopamine releases most when it's unknown if a reward will come.</p>
+        <div class="example-box">
+          <span class="ex-label">উদাহরণ</span>
+          <p class="lang-bn">Instagram এর like — কখন আসবে জানো না, তাই বারবার check করো। Slot machine, gambling — একই কারণে আসক্তি।</p>
+          <p class="lang-en" style="display:none">Instagram likes — you don't know when they'll come, so you keep checking. Slot machines, gambling — addiction for the same reason.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ ইতিবাচক ব্যবহার</span>
+          <p class="lang-bn">Content variety রাখো — কখনো educational, কখনো personal story, কখনো surprise content। Followers জানবে না কী আসছে, তাই engaged থাকবে।</p>
+          <p class="lang-en" style="display:none">Keep content variety — sometimes educational, sometimes personal story, sometimes surprise content. Followers won't know what's coming, so they'll stay engaged.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">07</span>
+          <span class="topic-name lang-bn">Loss Aversion — ক্ষতির ভয়</span>
+          <span class="topic-name lang-en" style="display:none">Loss Aversion</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">মানুষ ১০০ টাকা লাভের চেয়ে ১০০ টাকা হারানোর ভয়ে ২ গুণ বেশি motivated।</div>
+        <div class="topic-def lang-en" style="display:none">People are 2x more motivated by fear of losing ৳100 than gaining ৳100.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">Kahneman ও Tversky এর Prospect Theory অনুযায়ী, loss এর ব্যথা gain এর আনন্দের চেয়ে প্রায় দ্বিগুণ শক্তিশালী। তাই "যা হারাবে" framing বেশি কাজ করে।</p>
+        <p class="lang-en" style="display:none">According to Kahneman and Tversky's Prospect Theory, the pain of loss is about twice as powerful as the pleasure of gain. So "what you'll lose" framing works better.</p>
+        <div class="example-box">
+          <span class="ex-label">উদাহরণ</span>
+          <p class="lang-bn">"এই সুযোগ নিলে ৫০০০ টাকা পাবে" < "এই সুযোগ না নিলে ৫০০০ টাকা হারাবে" — দ্বিতীয়টা বেশি কাজ করে।</p>
+          <p class="lang-en" style="display:none">"Take this opportunity and earn 5000" < "Miss this and lose 5000" — the second works better.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ ইতিবাচক ব্যবহার</span>
+          <p class="lang-bn">"প্রতিদিন ব্যায়াম না করলে তুমি তোমার স্বাস্থ্য হারাচ্ছো" — এটা ভয় নয়, বাস্তবতা। সত্যিকারের ক্ষতি দেখাও।</p>
+          <p class="lang-en" style="display:none">"Not exercising daily means losing your health" — this isn't fear, it's reality. Show genuine loss.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">08</span>
+          <span class="topic-name lang-bn">Love Bombing — অতিরিক্ত মনোযোগ</span>
+          <span class="topic-name lang-en" style="display:none">Love Bombing</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">প্রথমে অতিরিক্ত praise, attention ও affection দিয়ে কাউকে আবদ্ধ করা।</div>
+        <div class="topic-def lang-en" style="display:none">Overwhelming someone with praise, attention, and affection to bind them initially.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">মানুষের brain এ dopamine এবং oxytocin এর rush তৈরি করে। ভিকটিম এত ভালো feel করে যে সে manipulator এর উপর নির্ভরশীল হয়ে পড়ে।</p>
+        <p class="lang-en" style="display:none">Creates a rush of dopamine and oxytocin in the brain. The victim feels so good they become dependent on the manipulator.</p>
+        <div class="example-box">
+          <span class="ex-label">Narcissist Pattern</span>
+          <p class="lang-bn">প্রথমে: "তুমি সবচেয়ে special" → আবদ্ধ হলে: অবহেলা ও control → ছেড়ে দিতে চাইলে: আবার Love Bombing।</p>
+          <p class="lang-en" style="display:none">First: "You're the most special" → Once bound: neglect and control → If trying to leave: Love Bombing again.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ ইতিবাচক ব্যবহার</span>
+          <p class="lang-bn">নতুন team member কে genuinely স্বাগত জানাও। Consistent appreciation দাও (manipulative নয়)। মানুষ valued feel করলে best কাজ করে।</p>
+          <p class="lang-en" style="display:none">Genuinely welcome new team members. Give consistent appreciation (not manipulative). People do their best work when they feel valued.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <hr class="full-divider" style="margin: 3rem 0;">
+
+  <!-- CATEGORY 2: COGNITIVE BIASES -->
+  <div id="cognitive" class="section-header">
+    <span class="section-tag">02</span>
+    <h2 class="section-title lang-bn">Cognitive Biases — চিন্তার ফাঁদ</h2>
+    <h2 class="section-title lang-en" style="display:none">Cognitive Biases</h2>
+    <p class="section-sub lang-bn">আমাদের মস্তিষ্ক যে ভুলগুলো বারবার করে</p>
+    <p class="section-sub lang-en" style="display:none">Mistakes our brain makes repeatedly</p>
+  </div>
+
+  <div class="topics-container active">
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">09</span>
+          <span class="topic-name lang-bn">Confirmation Bias — নিজের মত খোঁজা</span>
+          <span class="topic-name lang-en" style="display:none">Confirmation Bias</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">আমরা এমন তথ্যই খুঁজি যা আমাদের বিশ্বাসকে সমর্থন করে।</div>
+        <div class="topic-def lang-en" style="display:none">We seek information that confirms our existing beliefs.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">আমাদের brain এর একটি survival mechanism। নতুন বিপরীত তথ্য process করা কঠিন ও energy-intensive। তাই মস্তিষ্ক familiar তথ্যকে prefer করে।</p>
+        <p class="lang-en" style="display:none">A survival mechanism of our brain. Processing new contradictory information is difficult and energy-intensive. So the brain prefers familiar information.</p>
+        <div class="example-box">
+          <span class="ex-label">উদাহরণ</span>
+          <p class="lang-bn">রাজনৈতিক মতামত: আমরা শুধু আমাদের পক্ষের news channel দেখি। Social media algorithm ও এটা জানে তাই same content দেখায়।</p>
+          <p class="lang-en" style="display:none">Political opinion: We only watch news channels that support our views. Social media algorithms know this and show the same content.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ সচেতন হওয়ার উপায়</span>
+          <p class="lang-bn">Deliberately বিপরীত মত পড়ো। "আমি ভুল হতে পারি" — এই habit তৈরি করো। Steel-manning practice করো।</p>
+          <p class="lang-en" style="display:none">Deliberately read opposing views. Build the habit of "I might be wrong." Practice steel-manning.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">10</span>
+          <span class="topic-name lang-bn">Anchoring Effect — প্রথম তথ্যের প্রভাব</span>
+          <span class="topic-name lang-en" style="display:none">Anchoring Effect</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">প্রথম যে তথ্য পাই তার উপর বেশি নির্ভর করে পরবর্তী সিদ্ধান্ত।</div>
+        <div class="topic-def lang-en" style="display:none">Subsequent decisions rely heavily on the first piece of information received.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">দাম negotiation এ যে আগে বলে সে সুবিধা পায়। "Original price: ৫০০০, এখন: ২৫০০" — ৫০০০ টাকা anchor হয়ে যায়, ২৫০০ সস্তা মনে হয়।</p>
+        <p class="lang-en" style="display:none">In price negotiation, whoever speaks first has an advantage. "Original: 5000, Now: 2500" — 5000 becomes the anchor, making 2500 seem cheap.</p>
+        <div class="example-box">
+          <span class="ex-label">উদাহরণ</span>
+          <p class="lang-bn">Salary negotiation: যে আগে বলে "আমার expectation ৫০,০০০" — সে anchor set করে। অপরজন এর আশেপাশেই counter করবে।</p>
+          <p class="lang-en" style="display:none">Salary negotiation: Whoever first says "I expect 50,000" sets the anchor. The other party will counter around that figure.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ ব্যবহার</span>
+          <p class="lang-bn">Negotiation এ আগে বলো। Value দেখানোর সময় high value anchor দিয়ে শুরু করো।</p>
+          <p class="lang-en" style="display:none">In negotiation, speak first. When showing value, start with a high value anchor.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">11</span>
+          <span class="topic-name lang-bn">Dunning-Kruger Effect — অজানার আত্মবিশ্বাস</span>
+          <span class="topic-name lang-en" style="display:none">Dunning-Kruger Effect</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">কম জানা মানুষ বেশি confident, বেশি জানা মানুষ বেশি সন্দিহান।</div>
+        <div class="topic-def lang-en" style="display:none">Those who know less are more confident; those who know more are more doubtful.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">যখন কিছু একটু জানো, মনে হয় সব জানো। কিন্তু যত বেশি শেখো, তত বুঝতে পারো কত কম জানো। Expert রা বলেন "I don't know" বেশি।</p>
+        <p class="lang-en" style="display:none">When you know a little, you think you know it all. But the more you learn, the more you realize how little you know. Experts say "I don't know" more often.</p>
+        <div class="example-box">
+          <span class="ex-label">The Valley of Despair</span>
+          <p class="lang-bn">নতুন কিছু শেখার পর: আত্মবিশ্বাস peak → তারপর ধাক্কা খাওয়া → হতাশার valley → ধীরে ধীরে সত্যিকারের দক্ষতা অর্জন।</p>
+          <p class="lang-en" style="display:none">After learning something new: confidence peaks → then reality hits → valley of despair → gradually gaining real competence.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ সচেতন হওয়ার উপায়</span>
+          <p class="lang-bn">নিজের জ্ঞান নিয়ে humble থাকো। "আমি কতটুকু জানি না" এটা নিয়মিত জিজ্ঞেস করো।</p>
+          <p class="lang-en" style="display:none">Stay humble about your knowledge. Regularly ask "how much do I not know."</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">12</span>
+          <span class="topic-name lang-bn">Sunk Cost Fallacy — ডুবে যাওয়া খরচের ফাঁদ</span>
+          <span class="topic-name lang-en" style="display:none">Sunk Cost Fallacy</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">ইতিমধ্যে invest করা হয়েছে বলে লোকসান জানার পরেও চালিয়ে যাওয়া।</div>
+        <div class="topic-def lang-en" style="display:none">Continuing something despite knowing it's a loss because of what's already been invested.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">"এতদিন দিলাম, এখন ছাড়বো কেন?" — এই চিন্তাটাই sunk cost fallacy। কিন্তু past investment ভবিষ্যতের সিদ্ধান্তকে প্রভাবিত করা উচিত নয়।</p>
+        <p class="lang-en" style="display:none">"I've invested so much time, why quit now?" — that's sunk cost fallacy. But past investment shouldn't influence future decisions.</p>
+        <div class="example-box">
+          <span class="ex-label">উদাহরণ</span>
+          <p class="lang-bn">খারাপ relationship এ থাকা "এতদিন দিলাম" বলে। খারাপ movie শেষ করা "টাকা দিয়ে দেখছি" বলে।</p>
+          <p class="lang-en" style="display:none">Staying in a bad relationship saying "I've invested so much." Finishing a bad movie saying "I paid for it."</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ সচেতন হওয়ার উপায়</span>
+          <p class="lang-bn">প্রশ্ন করো: "যদি আজই নতুন করে শুরু করতাম, এই পথ বেছে নিতাম?" উত্তর না হলে বের হয়ে আসো।</p>
+          <p class="lang-en" style="display:none">Ask: "If I were starting fresh today, would I choose this path?" If no, get out.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="full-divider" style="margin: 3rem 0;">
+
+  <!-- CATEGORY 3: EMOTION -->
+  <div id="emotion" class="section-header">
+    <span class="section-tag">03</span>
+    <h2 class="section-title lang-bn">আবেগের মনোবিজ্ঞান</h2>
+    <h2 class="section-title lang-en" style="display:none">Psychology of Emotions</h2>
+    <p class="section-sub lang-bn">কীভাবে আবেগ আমাদের সিদ্ধান্ত ও আচরণ নিয়ন্ত্রণ করে</p>
+    <p class="section-sub lang-en" style="display:none">How emotions control our decisions and behavior</p>
+  </div>
+
+  <div class="topics-container active">
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">13</span>
+          <span class="topic-name lang-bn">Emotional Contagion — আবেগের ছোঁয়াচে প্রভাব</span>
+          <span class="topic-name lang-en" style="display:none">Emotional Contagion</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">অন্যের আবেগ আমাদের মধ্যে ছড়িয়ে পড়ে — হাসি হাসি তৈরি করে, কান্না কান্না।</div>
+        <div class="topic-def lang-en" style="display:none">Others' emotions spread to us — smiles create smiles, tears create tears.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">Mirror neurons — আমাদের brain এর বিশেষ কোষ যা অন্যের action ও emotion দেখে same response তৈরি করে। এজন্য sad movie দেখলে আমরাও কাঁদি।</p>
+        <p class="lang-en" style="display:none">Mirror neurons — special cells in our brain that create the same response when seeing others' actions and emotions. That's why we cry watching sad movies.</p>
+        <div class="example-box">
+          <span class="ex-label">উদাহরণ</span>
+          <p class="lang-bn">Happy energy নিয়ে room এ ঢুকলে সবাই energized হয়। Negative person এর সাথে থাকলে নিজেও drain হয়ে যাও।</p>
+          <p class="lang-en" style="display:none">Walking into a room with happy energy energizes everyone. Being with a negative person drains you too.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ ইতিবাচক ব্যবহার</span>
+          <p class="lang-bn">Leader হিসেবে positive energy maintain করো। তোমার enthusiasm team কে inspire করবে। আবেগ দিয়ে content তৈরি করো।</p>
+          <p class="lang-en" style="display:none">Maintain positive energy as a leader. Your enthusiasm will inspire your team. Create content with emotion.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">14</span>
+          <span class="topic-name lang-bn">Fear Appeal — ভয়ের আবেদন</span>
+          <span class="topic-name lang-en" style="display:none">Fear Appeal</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">ভয় দেখিয়ে আচরণ পরিবর্তন করানো — কিন্তু সঠিক মাত্রা না হলে উল্টো হয়।</div>
+        <div class="topic-def lang-en" style="display:none">Changing behavior through fear — but if not calibrated right, it backfires.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">অতিরিক্ত ভয় — মানুষ freeze করে বা avoid করে। মাঝারি ভয় + সমাধান = সবচেয়ে কার্যকর। Extended Parallel Process Model অনুযায়ী threat + efficacy একসাথে দিতে হয়।</p>
+        <p class="lang-en" style="display:none">Too much fear — people freeze or avoid. Moderate fear + solution = most effective. According to Extended Parallel Process Model, threat + efficacy must be given together.</p>
+        <div class="example-box">
+          <span class="ex-label">Effective Formula</span>
+          <p class="lang-bn">ভয় + সমাধান: "ধূমপানে ক্যান্সার হয় (ভয়) — এই helpline এ call করলে quit করতে পারবে (সমাধান)।"</p>
+          <p class="lang-en" style="display:none">Fear + Solution: "Smoking causes cancer (fear) — call this helpline to quit (solution)."</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ ইতিবাচক ব্যবহার</span>
+          <p class="lang-bn">ভয় দেখানোর সাথে সাথে সমাধানও দাও। শুধু ভয় দেখালে মানুষ paralyzed হয়।</p>
+          <p class="lang-en" style="display:none">Always provide a solution with fear. Only showing fear paralyzes people.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="full-divider" style="margin: 3rem 0;">
+
+  <!-- CATEGORY 4: SOCIAL -->
+  <div id="social" class="section-header">
+    <span class="section-tag">04</span>
+    <h2 class="section-title lang-bn">সামাজিক মনোবিজ্ঞান</h2>
+    <h2 class="section-title lang-en" style="display:none">Social Psychology</h2>
+    <p class="section-sub lang-bn">মানুষ দলে কীভাবে আচরণ করে এবং কেন</p>
+    <p class="section-sub lang-en" style="display:none">How and why people behave in groups</p>
+  </div>
+
+  <div class="topics-container active">
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">15</span>
+          <span class="topic-name lang-bn">Bystander Effect — দর্শক সমস্যা</span>
+          <span class="topic-name lang-en" style="display:none">Bystander Effect</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">মানুষ বেশি থাকলে কেউ সাহায্য করে না — দায়িত্ব ভাগ হয়ে যায়।</div>
+        <div class="topic-def lang-en" style="display:none">When more people are present, nobody helps — responsibility gets diffused.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">১৯৬৪ সালে Kitty Genovese কে ৩৮ জনের সামনে হত্যা করা হয়, কেউ সাহায্য করেনি। Diffusion of responsibility — "কেউ একজন করবে" মানসিকতা।</p>
+        <p class="lang-en" style="display:none">In 1964, Kitty Genovese was murdered in front of 38 people; no one helped. Diffusion of responsibility — "someone else will do it" mentality.</p>
+        <div class="example-box">
+          <span class="ex-label">সমাধান</span>
+          <p class="lang-bn">Group কে সাহায্যের জন্য বলার সময় specific ব্যক্তিকে point করো: "তুমি, হ্যাঁ তুমি — ambulance call করো।"</p>
+          <p class="lang-en" style="display:none">When asking a group for help, point to a specific person: "You, yes you — call an ambulance."</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ ইতিবাচক ব্যবহার</span>
+          <p class="lang-bn">দলে কাজ assign করার সময় specific person কে দায়িত্ব দাও। Group responsibility কাজ করে না।</p>
+          <p class="lang-en" style="display:none">When assigning work in a team, give responsibility to specific people. Group responsibility doesn't work.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">16</span>
+          <span class="topic-name lang-bn">Groupthink — দলীয় চিন্তার ফাঁদ</span>
+          <span class="topic-name lang-en" style="display:none">Groupthink</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">দলের harmony রক্ষায় সঠিক সিদ্ধান্তকে বলি দেওয়া।</div>
+        <div class="topic-def lang-en" style="display:none">Sacrificing correct decisions to maintain group harmony.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">NASA Challenger disaster এ engineers জানত rocket faulty, কিন্তু management এর বিরুদ্ধে বলেনি। সবাই agree করছে দেখে নিজেও agree করে।</p>
+        <p class="lang-en" style="display:none">NASA Challenger disaster — engineers knew the rocket was faulty but didn't speak against management. Seeing everyone agree, you agree too.</p>
+        <div class="example-box">
+          <span class="ex-label">সমাধান</span>
+          <p class="lang-bn">Devil's Advocate রাখো — এমন কেউ যার কাজই হলো বিরোধিতা করা। Anonymous voting ব্যবহার করো।</p>
+          <p class="lang-en" style="display:none">Keep a Devil's Advocate — someone whose job is to oppose. Use anonymous voting.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ ইতিবাচক ব্যবহার</span>
+          <p class="lang-bn">Team এ dissent কে encourage করো। "আমি ভুল হতে পারি, কেউ বিরোধিতা করো" — এই culture তৈরি করো।</p>
+          <p class="lang-en" style="display:none">Encourage dissent in the team. Build the culture of "I might be wrong, someone oppose me."</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">17</span>
+          <span class="topic-name lang-bn">Fundamental Attribution Error — মানুষকে ভুল বিচার</span>
+          <span class="topic-name lang-en" style="display:none">Fundamental Attribution Error</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">অন্যের ব্যর্থতাকে তার স্বভাবের দোষ দিই, নিজের ব্যর্থতাকে পরিস্থিতির দোষ দিই।</div>
+        <div class="topic-def lang-en" style="display:none">We blame others' failures on their character, our own failures on circumstances.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">কেউ late এলে: "সে অলস" (তার দোষ)। আমি late এলে: "ট্রাফিক ছিল" (পরিস্থিতির দোষ)। এটা selective empathy।</p>
+        <p class="lang-en" style="display:none">Someone arrives late: "They're lazy" (their fault). I arrive late: "There was traffic" (circumstance's fault). This is selective empathy.</p>
+        <div class="example-box">
+          <span class="ex-label">উদাহরণ</span>
+          <p class="lang-bn">Road rage: "এই পাগলটা কীভাবে drive করে!" — কিন্তু হয়তো সে hospital এ যাচ্ছে।</p>
+          <p class="lang-en" style="display:none">Road rage: "How does this idiot drive!" — but maybe they're rushing to a hospital.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ সচেতন হওয়ার উপায়</span>
+          <p class="lang-bn">অন্যকে judge করার আগে তার perspective নেওয়ার চেষ্টা করো। "তার জায়গায় আমি থাকলে কী করতাম?"</p>
+          <p class="lang-en" style="display:none">Before judging others, try to take their perspective. "What would I have done in their place?"</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="full-divider" style="margin: 3rem 0;">
+
+  <!-- CATEGORY 5: MOTIVATION -->
+  <div id="motivation" class="section-header">
+    <span class="section-tag">05</span>
+    <h2 class="section-title lang-bn">অনুপ্রেরণার মনোবিজ্ঞান</h2>
+    <h2 class="section-title lang-en" style="display:none">Psychology of Motivation</h2>
+    <p class="section-sub lang-bn">মানুষ কেন কাজ করে, কীভাবে তাদের motivated রাখা যায়</p>
+    <p class="section-sub lang-en" style="display:none">Why people work and how to keep them motivated</p>
+  </div>
+
+  <div class="topics-container active">
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">18</span>
+          <span class="topic-name lang-bn">Maslow's Hierarchy — চাহিদার পিরামিড</span>
+          <span class="topic-name lang-en" style="display:none">Maslow's Hierarchy of Needs</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">মানুষের চাহিদা ৫ স্তরে সাজানো — নিচের স্তর পূরণ না হলে উপরের স্তর চায় না।</div>
+        <div class="topic-def lang-en" style="display:none">Human needs are arranged in 5 levels — without fulfilling lower levels, upper levels aren't desired.</div>
+        <h4>৫টি স্তর</h4>
+        <p class="lang-bn">১. Physiological: খাবার, ঘুম, বাসস্থান</p>
+        <p class="lang-bn">২. Safety: নিরাপত্তা, চাকরি, স্বাস্থ্য</p>
+        <p class="lang-bn">৩. Love/Belonging: বন্ধুত্ব, পরিবার, সম্পর্ক</p>
+        <p class="lang-bn">৪. Esteem: সম্মান, achievement, recognition</p>
+        <p class="lang-bn">৫. Self-Actualization: নিজের সম্ভাবনার পূর্ণ বিকাশ</p>
+        <p class="lang-en" style="display:none">1. Physiological: food, sleep, shelter | 2. Safety: security, job, health | 3. Love/Belonging: friends, family, relationships | 4. Esteem: respect, achievement, recognition | 5. Self-Actualization: full realization of one's potential</p>
+        <div class="example-box">
+          <span class="ex-label">উদাহরণ</span>
+          <p class="lang-bn">ক্ষুধার্ত মানুষকে motivational speech দিলে কাজ হবে না। আগে খাবারের ব্যবস্থা করো।</p>
+          <p class="lang-en" style="display:none">Giving motivational speeches to hungry people won't work. First arrange food.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ ইতিবাচক ব্যবহার</span>
+          <p class="lang-bn">কাউকে help করার আগে তার কোন স্তরের চাহিদা আছে সেটা বোঝো। সেই অনুযায়ী সাহায্য করো।</p>
+          <p class="lang-en" style="display:none">Before helping someone, understand which level of need they have. Help accordingly.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">19</span>
+          <span class="topic-name lang-bn">Intrinsic vs Extrinsic Motivation</span>
+          <span class="topic-name lang-en" style="display:none">Intrinsic vs Extrinsic Motivation</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">ভেতর থেকে আসা motivation বাইরের পুরস্কারের চেয়ে বেশি টেকসই।</div>
+        <div class="topic-def lang-en" style="display:none">Motivation from within is more sustainable than external rewards.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">Overjustification Effect: যদি কেউ naturally কিছু enjoy করে এবং তাকে এর জন্য পয়সা দাও — সে enjoyment কমে যায়। বাইরের reward ভেতরের motivation কে নষ্ট করে।</p>
+        <p class="lang-en" style="display:none">Overjustification Effect: If someone naturally enjoys something and you pay them for it — their enjoyment decreases. External rewards destroy internal motivation.</p>
+        <div class="example-box">
+          <span class="ex-label">উদাহরণ</span>
+          <p class="lang-bn">বাচ্চারা নিজে থেকে আঁকতে ভালোবাসত। প্রতিটি ছবির জন্য পুরস্কার দেওয়ার পর তারা পুরস্কার না পেলে আর আঁকে না।</p>
+          <p class="lang-en" style="display:none">Children loved drawing on their own. After rewarding each drawing, they no longer drew without rewards.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ ইতিবাচক ব্যবহার</span>
+          <p class="lang-bn">মানুষের passion খুঁজে বের করো। Purpose দাও — "কেন" এটা গুরুত্বপূর্ণ। Reward হিসেবে recognition দাও, সবসময় টাকা নয়।</p>
+          <p class="lang-en" style="display:none">Find people's passions. Give purpose — "why" this matters. Give recognition as reward, not always money.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">20</span>
+          <span class="topic-name lang-bn">Flow State — সর্বোচ্চ মনোযোগের অবস্থা</span>
+          <span class="topic-name lang-en" style="display:none">Flow State</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">যখন কাজ এত absorbing হয় যে সময় ভুলে যাই — এটাই Flow।</div>
+        <div class="topic-def lang-en" style="display:none">When work becomes so absorbing that we forget time — that's Flow.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">Mihaly Csikszentmihalyi এর theory: Challenge ও Skill এর perfect balance এ Flow আসে। কাজ খুব সহজ হলে boredom, খুব কঠিন হলে anxiety।</p>
+        <p class="lang-en" style="display:none">Mihaly Csikszentmihalyi's theory: Flow comes at the perfect balance of Challenge and Skill. Too easy = boredom, too hard = anxiety.</p>
+        <div class="example-box">
+          <span class="ex-label">Flow তৈরির উপায়</span>
+          <p class="lang-bn">Clear goals → Immediate feedback → Challenge-Skill balance → No distraction → এই চারটি থাকলে Flow আসে।</p>
+          <p class="lang-en" style="display:none">Clear goals → Immediate feedback → Challenge-Skill balance → No distraction → Flow comes with all four.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ ইতিবাচক ব্যবহার</span>
+          <p class="lang-bn">Team member দের slightly challenging কিন্তু achievable কাজ দাও। Quick feedback loop তৈরি করো।</p>
+          <p class="lang-en" style="display:none">Give team members slightly challenging but achievable work. Create quick feedback loops.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="full-divider" style="margin: 3rem 0;">
+
+  <!-- CATEGORY 6: DARK PSYCHOLOGY -->
+  <div id="dark" class="section-header">
+    <span class="section-tag">06</span>
+    <h2 class="section-title lang-bn">ডার্ক সাইকোলজি — সচেতন থাকো</h2>
+    <h2 class="section-title lang-en" style="display:none">Dark Psychology — Stay Aware</h2>
+    <p class="section-sub lang-bn">এগুলো চেনার জন্য জানো, ব্যবহারের জন্য নয়</p>
+    <p class="section-sub lang-en" style="display:none">Know these to recognize them, not to use them</p>
+  </div>
+
+  <div class="topics-container active">
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">21</span>
+          <span class="topic-name lang-bn">Gaslighting — বাস্তবতা বিকৃতি</span>
+          <span class="topic-name lang-en" style="display:none">Gaslighting</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">কাউকে তার নিজের স্মৃতি ও বাস্তবতা নিয়ে সন্দিহান করিয়ে দেওয়া।</div>
+        <div class="topic-def lang-en" style="display:none">Making someone doubt their own memory and reality.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">"সেটা হয়নি।" "তুমি অতিরিক্ত sensitive।" "আমি কখনো সেটা বলিনি।" — ধীরে ধীরে victim তার নিজের judgment কে বিশ্বাস করা বন্ধ করে দেয়।</p>
+        <p class="lang-en" style="display:none">"That didn't happen." "You're too sensitive." "I never said that." — Gradually the victim stops trusting their own judgment.</p>
+        <div class="example-box">
+          <span class="ex-label">⚠️ লক্ষণ</span>
+          <p class="lang-bn">নিজের উপর বিশ্বাস কমে যাচ্ছে। ছোট বিষয়ে ক্রমাগত apologize করছো। অন্যরা কী ভাবছে তা নিয়ে অতিরিক্ত চিন্তিত।</p>
+          <p class="lang-en" style="display:none">Decreasing confidence in yourself. Constantly apologizing for small things. Excessively worried about what others think.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">🛡️ সুরক্ষা</span>
+          <p class="lang-bn">ঘটনা diary তে লিখে রাখো। Trusted বন্ধুর সাথে কথা বলো। Professional help নাও।</p>
+          <p class="lang-en" style="display:none">Write events in a diary. Talk to a trusted friend. Seek professional help.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">22</span>
+          <span class="topic-name lang-bn">Dark Triad — তিনটি বিপজ্জনক personality</span>
+          <span class="topic-name lang-en" style="display:none">Dark Triad</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">Narcissism, Machiavellianism এবং Psychopathy — তিনটি মিলে Dark Triad।</div>
+        <div class="topic-def lang-en" style="display:none">Narcissism, Machiavellianism, and Psychopathy — together they form the Dark Triad.</div>
+        <h4>তিনটি কী?</h4>
+        <p class="lang-bn"><strong style="color:#ff6584">Narcissism:</strong> অতিরিক্ত self-love, empathy এর অভাব, grandiosity।</p>
+        <p class="lang-bn"><strong style="color:#ff6584">Machiavellianism:</strong> নিজের স্বার্থে যেকোনো কিছু করা, manipulative।</p>
+        <p class="lang-bn"><strong style="color:#ff6584">Psychopathy:</strong> remorse নেই, impulsive, callous।</p>
+        <p class="lang-en" style="display:none">Narcissism: excessive self-love, lack of empathy, grandiosity. Machiavellianism: doing anything for self-interest, manipulative. Psychopathy: no remorse, impulsive, callous.</p>
+        <div class="example-box">
+          <span class="ex-label">⚠️ চেনার উপায়</span>
+          <p class="lang-bn">সবসময় নিজের কথা বলে। অন্যের feelings নিয়ে umconscious। Charm দিয়ে কাছে আসে, পরে exploit করে।</p>
+          <p class="lang-en" style="display:none">Always talks about themselves. Unconcerned about others' feelings. Gets close with charm, then exploits.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">🛡️ সুরক্ষা</span>
+          <p class="lang-bn">এই ধরনের মানুষ চিনলে দূরত্ব রাখো। তাদের সাথে vulnerable হওয়া বিপজ্জনক।</p>
+          <p class="lang-en" style="display:none">If you recognize this type of person, maintain distance. Being vulnerable with them is dangerous.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="full-divider" style="margin: 3rem 0;">
+
+  <!-- CATEGORY 7: THERAPY TECHNIQUES -->
+  <div id="therapy" class="section-header">
+    <span class="section-tag">07</span>
+    <h2 class="section-title lang-bn">থেরাপি ও নিরাময়ের মনোবিজ্ঞান</h2>
+    <h2 class="section-title lang-en" style="display:none">Therapy & Healing Psychology</h2>
+    <p class="section-sub lang-bn">নিজেকে ও অন্যকে সুস্থ রাখার বৈজ্ঞানিক পদ্ধতি</p>
+    <p class="section-sub lang-en" style="display:none">Scientific methods to keep yourself and others healthy</p>
+  </div>
+
+  <div class="topics-container active">
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">23</span>
+          <span class="topic-name lang-bn">CBT — Cognitive Behavioral Therapy</span>
+          <span class="topic-name lang-en" style="display:none">Cognitive Behavioral Therapy (CBT)</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">চিন্তা → আবেগ → আচরণ — এই chain কে পরিবর্তন করে মানসিক সুস্থতা আনা।</div>
+        <div class="topic-def lang-en" style="display:none">Bringing mental health by changing the Thought → Emotion → Behavior chain.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">নেতিবাচক চিন্তাকে (Cognitive Distortions) চিহ্নিত করো এবং বাস্তবভিত্তিক চিন্তা দিয়ে replace করো। Evidence-based এবং সবচেয়ে কার্যকর therapy।</p>
+        <p class="lang-en" style="display:none">Identify negative thoughts (Cognitive Distortions) and replace them with reality-based thoughts. Evidence-based and most effective therapy.</p>
+        <div class="example-box">
+          <span class="ex-label">CBT Technique</span>
+          <p class="lang-bn">চিন্তা: "আমি ব্যর্থ।" → Challenge: "আমি কি সত্যিই ব্যর্থ? কোন কোন ক্ষেত্রে সফল?" → নতুন চিন্তা: "আমি এই বিষয়ে আরো শিখছি।"</p>
+          <p class="lang-en" style="display:none">Thought: "I'm a failure." → Challenge: "Am I really a failure? In what areas am I successful?" → New thought: "I'm still learning in this area."</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ নিজে করার উপায়</span>
+          <p class="lang-bn">Thought journal রাখো। নেতিবাচক চিন্তা লিখে তার evidence খোঁজো। Counter-evidence লিখো।</p>
+          <p class="lang-en" style="display:none">Keep a thought journal. Write negative thoughts and look for evidence. Write counter-evidence.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">24</span>
+          <span class="topic-name lang-bn">Mindfulness — বর্তমান মুহূর্তে থাকা</span>
+          <span class="topic-name lang-en" style="display:none">Mindfulness</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">বর্তমান মুহূর্তে পূর্ণ মনোযোগ দেওয়া, বিচার না করে।</div>
+        <div class="topic-def lang-en" style="display:none">Giving full attention to the present moment without judgment.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">মানুষের মন ৪৭% সময় অন্য কোথাও থাকে। Mindfulness অনুশীলন করলে prefrontal cortex শক্তিশালী হয়, amygdala (fear center) ছোট হয়।</p>
+        <p class="lang-en" style="display:none">The human mind is elsewhere 47% of the time. Practicing mindfulness strengthens the prefrontal cortex, and the amygdala (fear center) shrinks.</p>
+        <div class="example-box">
+          <span class="ex-label">৫-৪-৩-২-১ Technique</span>
+          <p class="lang-bn">৫টি দেখছো, ৪টি ছুঁতে পারছো, ৩টি শুনছো, ২টি গন্ধ নিচ্ছো, ১টি স্বাদ নিচ্ছো — anxiety কমাতে সাথে সাথে কাজ করে।</p>
+          <p class="lang-en" style="display:none">5 things you see, 4 you can touch, 3 you hear, 2 you smell, 1 you taste — works immediately to reduce anxiety.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ শুরু করার উপায়</span>
+          <p class="lang-bn">রোজ ৫ মিনিট শ্বাসের দিকে মনোযোগ দাও। Headspace বা Calm app ব্যবহার করো।</p>
+          <p class="lang-en" style="display:none">Focus on your breath for 5 minutes daily. Use Headspace or Calm app.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="full-divider" style="margin: 3rem 0;">
+
+  <!-- CATEGORY 8: NEUROSCIENCE -->
+  <div id="neuro" class="section-header">
+    <span class="section-tag">08</span>
+    <h2 class="section-title lang-bn">নিউরোসাইকোলজি — মস্তিষ্কের বিজ্ঞান</h2>
+    <h2 class="section-title lang-en" style="display:none">Neuropsychology — Science of the Brain</h2>
+    <p class="section-sub lang-bn">আমাদের brain কীভাবে কাজ করে তার বৈজ্ঞানিক ব্যাখ্যা</p>
+    <p class="section-sub lang-en" style="display:none">Scientific explanation of how our brain works</p>
+  </div>
+
+  <div class="topics-container active">
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">25</span>
+          <span class="topic-name lang-bn">Dopamine Loop — আসক্তির বিজ্ঞান</span>
+          <span class="topic-name lang-en" style="display:none">Dopamine Loop</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">Dopamine আনন্দের hormone নয় — এটা চাওয়ার hormone।</div>
+        <div class="topic-def lang-en" style="display:none">Dopamine is not the pleasure hormone — it's the wanting hormone.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">Dopamine আমাদের কিছু চাইতে বাধ্য করে, পেলে সন্তুষ্ট করে না। তাই চাওয়া চলতেই থাকে। Social media, gambling, shopping — সবই dopamine loop।</p>
+        <p class="lang-en" style="display:none">Dopamine compels us to want things but doesn't satisfy when we get them. So wanting continues. Social media, gambling, shopping — all dopamine loops.</p>
+        <div class="example-box">
+          <span class="ex-label">Dopamine Detox</span>
+          <p class="lang-bn">কিছুদিন সব pleasure ban করো (social media, junk food, gaming)। Brain reset হয়, natural things আবার enjoyable লাগে।</p>
+          <p class="lang-en" style="display:none">Ban all pleasures for a few days (social media, junk food, gaming). Brain resets, natural things become enjoyable again.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ ইতিবাচক ব্যবহার</span>
+          <p class="lang-bn">Learning ও exercise এ dopamine loop তৈরি করো। Progress track করো — progress দেখলে dopamine release হয়।</p>
+          <p class="lang-en" style="display:none">Create dopamine loops in learning and exercise. Track progress — seeing progress releases dopamine.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">26</span>
+          <span class="topic-name lang-bn">Neuroplasticity — মস্তিষ্কের পরিবর্তনের ক্ষমতা</span>
+          <span class="topic-name lang-en" style="display:none">Neuroplasticity</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">মস্তিষ্ক পরিবর্তন হতে পারে — যেকোনো বয়সে, যেকোনো সময়।</div>
+        <div class="topic-def lang-en" style="display:none">The brain can change — at any age, at any time.</div>
+        <h4>কীভাবে কাজ করে</h4>
+        <p class="lang-bn">"Neurons that fire together, wire together।" নতুন কিছু বারবার করলে brain এ নতুন neural pathway তৈরি হয়। পুরনো bad habits এর pathway দুর্বল হয়।</p>
+        <p class="lang-en" style="display:none">"Neurons that fire together, wire together." Repeatedly doing new things creates new neural pathways in the brain. Old bad habit pathways weaken.</p>
+        <div class="example-box">
+          <span class="ex-label">উদাহরণ</span>
+          <p class="lang-bn">London taxi drivers এর brain scan এ দেখা গেছে তাদের hippocampus (spatial memory) অন্যদের চেয়ে বড়। Practice এ brain পরিবর্তন হয়।</p>
+          <p class="lang-en" style="display:none">Brain scans of London taxi drivers show their hippocampus (spatial memory) is larger than others. The brain changes with practice.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ ইতিবাচক ব্যবহার</span>
+          <p class="lang-bn">যেকোনো skill শেখা সম্ভব। "আমি পারবো না" এটা মিথ্যা। ২১ দিনের habit নয়, consistent practice করো।</p>
+          <p class="lang-en" style="display:none">Any skill can be learned. "I can't do it" is a lie. Not 21 days but consistent practice changes the brain.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-card" data-read="false">
+      <div class="topic-header" onclick="toggleTopic(this)">
+        <div class="topic-title-wrap">
+          <span class="topic-num">27</span>
+          <span class="topic-name lang-bn">Fight, Flight, Freeze — বিপদে মস্তিষ্ক</span>
+          <span class="topic-name lang-en" style="display:none">Fight, Flight, Freeze Response</span>
+        </div>
+        <span class="topic-arrow">▼</span>
+      </div>
+      <div class="topic-body">
+        <div class="topic-def lang-bn">বিপদে মস্তিষ্ক তিনটি response এর একটি বেছে নেয়।</div>
+        <div class="topic-def lang-en" style="display:none">In danger, the brain chooses one of three responses.</div>
+        <h4>তিনটি Response</h4>
+        <p class="lang-bn"><strong style="color:#f7971e">Fight:</strong> মোকাবেলা করা — আক্রমণ, তর্ক।</p>
+        <p class="lang-bn"><strong style="color:#f7971e">Flight:</strong> পালিয়ে যাওয়া — এড়িয়ে চলা, procrastination।</p>
+        <p class="lang-bn"><strong style="color:#f7971e">Freeze:</strong> স্থির হয়ে যাওয়া — speechless হওয়া, paralysis।</p>
+        <p class="lang-en" style="display:none">Fight: confront — attack, argue. Flight: run away — avoid, procrastinate. Freeze: become still — speechless, paralysis.</p>
+        <div class="example-box">
+          <span class="ex-label">Amygdala Hijack</span>
+          <p class="lang-bn">রাগের মুহূর্তে amygdala prefrontal cortex কে override করে। তাই রাগে সিদ্ধান্ত নেওয়া ভুল। ৯০ সেকেন্ড অপেক্ষা করো।</p>
+          <p class="lang-en" style="display:none">In moments of anger, the amygdala overrides the prefrontal cortex. That's why making decisions in anger is wrong. Wait 90 seconds.</p>
+        </div>
+        <div class="use-positive">
+          <span class="up-label">✅ Regulate করার উপায়</span>
+          <p class="lang-bn">Deep breathing করো — vagus nerve activate হয়, calm হয়। ৪ সেকেন্ড শ্বাস নাও, ৬ সেকেন্ড ছাড়ো।</p>
+          <p class="lang-en" style="display:none">Do deep breathing — activates vagus nerve, calms down. Breathe in 4 seconds, out 6 seconds.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<footer>
+  <p class="lang-bn">মনোবিজ্ঞান মাস্টারক্লাস — <span>জ্ঞানই শক্তি</span></p>
+  <p class="lang-en" style="display:none">Psychology Masterclass — <span>Knowledge is Power</span></p>
+  <p style="margin-top:0.5rem; font-size:0.75rem;">© 2024 · সকল তথ্য শিক্ষামূলক উদ্দেশ্যে</p>
+</footer>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  let readCount = 0;
+  const totalTopics = document.querySelectorAll('.topic-card').length;
+
+  function toggleTopic(header) {
+    const card = header.parentElement;
+    const wasOpen = card.classList.contains('open');
+    card.classList.toggle('open');
+    if (!wasOpen && card.dataset.read === 'false') {
+      card.dataset.read = 'true';
+      readCount++;
+      updateProgress();
+    }
+  }
+
+  function updateProgress() {
+    const pct = Math.round((readCount / totalTopics) * 100);
+    document.getElementById('progressBar').style.width = pct + '%';
+    document.getElementById('progressText').textContent = readCount + ' / ' + totalTopics;
+  }
+
+  function toggleLang() {
+    const body = document.body;
+    const btn = document.querySelector('.lang-toggle');
+    if (body.classList.contains('en')) {
+      body.classList.remove('en');
+      btn.textContent = '🌐 English';
+      document.querySelectorAll('.lang-en').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.lang-bn').forEach(el => el.style.display = '');
+    } else {
+      body.classList.add('en');
+      btn.textContent = '🌐 বাংলা';
+      document.querySelectorAll('.lang-bn').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.lang-en').forEach(el => el.style.display = '');
+    }
+  }
+
+  function searchTopics(query) {
+    const q = query.toLowerCase();
+    document.querySelectorAll('.topic-card').forEach(card => {
+      const text = card.textContent.toLowerCase();
+      card.style.display = text.includes(q) ? '' : 'none';
+    });
+  }
+
+  window.addEventListener('scroll', () => {
+    const btn = document.getElementById('scrollTop');
+    btn.classList.toggle('visible', window.scrollY > 400);
+  });
+
+  // Init progress
+  updateProgress();
+</script>
+</body>
+</html>
