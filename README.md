@@ -94,7 +94,7 @@
 
 ```bash
 # ১. রিপোজিটরি clone করো
-git clone https://github.com/তোমার-username/psychology-masterclass.git
+git clone https://github.com/rakibulAI/psychology-masterclass.git
 
 # ২. ফোল্ডারে যাও
 cd psychology-masterclass
