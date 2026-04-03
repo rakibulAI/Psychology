@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>রাকিবুল হাসান অন্তর — টাইম চেম্বার সেলফ-স্টাডি গাইড</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Serif+Bengali:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #060810;
+    --bg2: #0d1117;
+    --bg3: #111827;
+    --gold: #f5c842;
+    --gold2: #e8a020;
+    --teal: #00d4aa;
+    --rose: #ff6b8a;
+    --violet: #a78bfa;
+    --text: #e8eaf0;
+    --muted: #8892a4;
+    --card: #0f1623;
+    --border: rgba(245,200,66,0.15);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* Animated starfield background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, rgba(245,200,66,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 80% 10%, rgba(0,212,170,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 50% 80%, rgba(167,139,250,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 10% 60%, rgba(255,107,138,0.2) 0%, transparent 100%),
+      radial-gradient(2px 2px at 70% 50%, rgba(245,200,66,0.2) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ---- HERO ---- */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(245,200,66,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 80% 80%, rgba(0,212,170,0.08) 0%, transparent 50%);
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '⏳';
+    position: absolute;
+    font-size: 400px;
+    opacity: 0.025;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(245,200,66,0.1);
+    border: 1px solid rgba(245,200,66,0.3);
+    color: var(--gold);
+    padding: 6px 20px;
+    border-radius: 50px;
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin-bottom: 28px;
+    animation: fadeDown 0.8s ease both;
+  }
+
+  .hero-name {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: clamp(14px, 3vw, 18px);
+    color: var(--teal);
+    margin-bottom: 12px;
+    animation: fadeDown 0.9s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: clamp(32px, 7vw, 72px);
+    font-weight: 900;
+    line-height: 1.2;
+    background: linear-gradient(135deg, var(--gold) 0%, #fff8e1 40%, var(--gold2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+    animation: fadeDown 1s ease both;
+  }
+
+  .hero-sub {
+    font-size: clamp(15px, 2.5vw, 20px);
+    color: var(--muted);
+    max-width: 640px;
+    margin: 0 auto 40px;
+    animation: fadeDown 1.1s ease both;
+  }
+
+  .hero-sub strong { color: var(--gold); }
+
+  .stats-row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeUp 1.2s ease both;
+  }
+
+  .stat-pill {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 24px;
+    text-align: center;
+  }
+  .stat-pill .num {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--gold);
+    font-family: 'Noto Serif Bengali', serif;
+  }
+  .stat-pill .lbl { font-size: 12px; color: var(--muted); }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--muted);
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: bounce 2s infinite;
+  }
+  .scroll-hint::after {
+    content: '';
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+
+  /* ---- NAV ---- */
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(6,8,16,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 20px;
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-link {
+    padding: 16px 20px;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+  }
+  .nav-link:hover { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* ---- SECTIONS ---- */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 20px;
+  }
+
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: clamp(24px, 4vw, 40px);
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #fff;
+  }
+  .section-title span { color: var(--gold); }
+  .section-desc {
+    color: var(--muted);
+    max-width: 640px;
+    margin-bottom: 50px;
+    font-size: 15px;
+  }
+
+  /* ---- SUMMARY BOX ---- */
+  .summary-box {
+    background: linear-gradient(135deg, rgba(245,200,66,0.06) 0%, rgba(0,212,170,0.04) 100%);
+    border: 1px solid rgba(245,200,66,0.2);
+    border-radius: 20px;
+    padding: 36px 40px;
+    margin-bottom: 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .summary-box::before {
+    content: '"';
+    position: absolute;
+    top: -20px;
+    left: 20px;
+    font-size: 160px;
+    color: rgba(245,200,66,0.06);
+    font-family: serif;
+    line-height: 1;
+  }
+  .summary-box p {
+    font-size: 17px;
+    line-height: 2;
+    color: #cdd4e0;
+    position: relative;
+    z-index: 1;
+  }
+  .summary-box p + p { margin-top: 16px; }
+  .summary-box strong { color: var(--gold); }
+
+  /* ---- MODULE HEADER ---- */
+  .module-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 32px;
+    border-radius: 16px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .module-header.m1 {
+    background: linear-gradient(135deg, rgba(245,200,66,0.1) 0%, rgba(232,160,32,0.05) 100%);
+    border: 1px solid rgba(245,200,66,0.25);
+  }
+  .module-header.m2 {
+    background: linear-gradient(135deg, rgba(0,212,170,0.1) 0%, rgba(0,180,140,0.05) 100%);
+    border: 1px solid rgba(0,212,170,0.25);
+  }
+  .module-num {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 52px;
+    font-weight: 900;
+    opacity: 0.2;
+    line-height: 1;
+    min-width: 70px;
+  }
+  .m1 .module-num { color: var(--gold); }
+  .m2 .module-num { color: var(--teal); }
+  .module-info h2 {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .module-info p { color: var(--muted); font-size: 14px; }
+  .module-time {
+    margin-left: auto;
+    text-align: right;
+  }
+  .module-time .t { font-size: 22px; font-weight: 700; color: var(--gold); }
+  .module-time .tl { font-size: 11px; color: var(--muted); }
+
+  /* ---- TOPIC CARDS ---- */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+    margin-bottom: 60px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 18px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    cursor: default;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(245,200,66,0.3);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(245,200,66,0.1);
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 18px 18px 0 0;
+  }
+  .card.gold::before { background: linear-gradient(90deg, var(--gold), var(--gold2)); }
+  .card.teal::before { background: linear-gradient(90deg, var(--teal), #00b894); }
+  .card.rose::before { background: linear-gradient(90deg, var(--rose), #ff8fab); }
+  .card.violet::before { background: linear-gradient(90deg, var(--violet), #c4b5fd); }
+
+  .card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 18px;
+  }
+  .icon-gold { background: rgba(245,200,66,0.12); }
+  .icon-teal { background: rgba(0,212,170,0.12); }
+  .icon-rose { background: rgba(255,107,138,0.12); }
+  .icon-violet { background: rgba(167,139,250,0.12); }
+
+  .card-num {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .card h3 {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: #fff;
+    line-height: 1.4;
+  }
+  .card .english-title {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 14px;
+    font-style: italic;
+  }
+
+  .card-body { font-size: 14px; color: #a8b4c4; line-height: 1.8; }
+
+  .learn-list {
+    list-style: none;
+    margin: 12px 0;
+  }
+  .learn-list li {
+    padding: 5px 0 5px 22px;
+    position: relative;
+    font-size: 14px;
+    color: #a8b4c4;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .learn-list li:last-child { border-bottom: none; }
+  .learn-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 12px;
+  }
+
+  .example-box {
+    background: rgba(245,200,66,0.05);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    margin-top: 14px;
+  }
+  .example-box .ex-label {
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .example-box p { font-size: 13px; color: #a0aab8; }
+
+  /* ---- FREE RESOURCES ---- */
+  .free-box {
+    background: linear-gradient(135deg, rgba(0,212,170,0.06) 0%, rgba(0,180,140,0.03) 100%);
+    border: 1px solid rgba(0,212,170,0.2);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-top: 16px;
+  }
+  .free-box .free-label {
+    font-size: 12px;
+    color: var(--teal);
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .free-box ul {
+    list-style: none;
+    font-size: 13px;
+    color: #8fa8a0;
+  }
+  .free-box ul li {
+    padding: 3px 0 3px 18px;
+    position: relative;
+  }
+  .free-box ul li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--teal);
+    font-size: 11px;
+  }
+
+  /* ---- FULL-WIDTH TOPIC CARD ---- */
+  .wide-card {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px;
+    padding: 32px 36px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .wide-card:hover { border-color: rgba(0,212,170,0.25); }
+  .wide-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, var(--teal), #00b894);
+    border-radius: 4px 0 0 4px;
+  }
+  .wide-card.rose-accent::before { background: linear-gradient(to bottom, var(--rose), #ff8fab); }
+  .wide-card.violet-accent::before { background: linear-gradient(to bottom, var(--violet), #c4b5fd); }
+  .wide-card.gold-accent::before { background: linear-gradient(to bottom, var(--gold), var(--gold2)); }
+
+  .wide-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .wide-card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  .wide-card-title h3 {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .wide-card-title .etitle { font-size: 12px; color: var(--muted); }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 16px;
+  }
+  @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+
+  .col-block h4 {
+    font-size: 13px;
+    color: var(--gold);
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+
+  /* ---- MIND MAP ---- */
+  .mindmap-section {
+    padding: 80px 20px;
+    background: var(--bg2);
+    position: relative;
+    overflow: hidden;
+  }
+  .mindmap-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 50%, rgba(245,200,66,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .mindmap-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    padding: 60px 20px;
+  }
+
+  /* CSS Mind Map */
+  .mind-center {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    background: linear-gradient(135deg, #f5c842, #e8a020);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto 60px;
+    box-shadow: 0 0 60px rgba(245,200,66,0.3), 0 0 120px rgba(245,200,66,0.1);
+    z-index: 10;
+    animation: pulse 3s ease-in-out infinite;
+  }
+  .mind-center .mc-icon { font-size: 32px; margin-bottom: 4px; }
+  .mind-center .mc-text {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a0e00;
+    line-height: 1.4;
+    padding: 0 10px;
+  }
+
+  .branches {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .branch {
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s;
+  }
+  .branch:hover { transform: scale(1.03); }
+  .branch.b1 { background: rgba(245,200,66,0.1); border: 1px solid rgba(245,200,66,0.3); }
+  .branch.b2 { background: rgba(0,212,170,0.1); border: 1px solid rgba(0,212,170,0.3); }
+  .branch.b3 { background: rgba(255,107,138,0.1); border: 1px solid rgba(255,107,138,0.3); }
+  .branch.b4 { background: rgba(167,139,250,0.1); border: 1px solid rgba(167,139,250,0.3); }
+  .branch.b5 { background: rgba(251,146,60,0.1); border: 1px solid rgba(251,146,60,0.3); }
+  .branch.b6 { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); }
+
+  .branch-icon { font-size: 28px; margin-bottom: 10px; }
+  .branch-title {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+  .branch-subs {
+    list-style: none;
+    font-size: 12px;
+    color: var(--muted);
+    text-align: left;
+  }
+  .branch-subs li { padding: 3px 0; padding-left: 14px; position: relative; }
+  .branch-subs li::before { content: '·'; position: absolute; left: 2px; color: var(--gold); }
+
+  .mindmap-desc {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-top: 40px;
+  }
+  .mindmap-desc h3 {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 20px;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .mindmap-desc p {
+    font-size: 14px;
+    color: #8892a4;
+    line-height: 2;
+    margin-bottom: 12px;
+  }
+  .mindmap-desc strong { color: var(--teal); }
+
+  /* ---- ACTION PLAN ---- */
+  .action-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 20px;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 40px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold), var(--teal), var(--rose));
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 40px;
+  }
+  .tl-dot {
+    position: absolute;
+    left: -35px;
+    top: 4px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    background: var(--bg);
+    border: 2px solid var(--gold);
+    color: var(--gold);
+  }
+  .tl-item:nth-child(even) .tl-dot { border-color: var(--teal); color: var(--teal); }
+  .tl-item:nth-child(3n) .tl-dot { border-color: var(--rose); color: var(--rose); }
+
+  .tl-content {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 20px 24px;
+  }
+  .tl-content h4 {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 18px;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .tl-content p { font-size: 14px; color: #8892a4; line-height: 1.8; }
+  .tl-week {
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+
+  /* ---- MOTIVATIONAL QUOTE ---- */
+  .quote-banner {
+    background: linear-gradient(135deg, rgba(245,200,66,0.08) 0%, rgba(0,212,170,0.05) 100%);
+    border: 1px solid rgba(245,200,66,0.15);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    margin: 60px 0;
+  }
+  .quote-banner .q-text {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: clamp(18px, 3vw, 26px);
+    color: var(--gold);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .quote-banner .q-by { font-size: 13px; color: var(--muted); }
+
+  /* ---- FREE MEGA BOX ---- */
+  .mega-free {
+    background: linear-gradient(135deg, rgba(0,212,170,0.08) 0%, rgba(0,180,140,0.04) 100%);
+    border: 1px solid rgba(0,212,170,0.25);
+    border-radius: 20px;
+    padding: 36px;
+    margin-top: 40px;
+  }
+  .mega-free h3 {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 22px;
+    color: var(--teal);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .free-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .free-item {
+    background: rgba(0,0,0,0.2);
+    border: 1px solid rgba(0,212,170,0.15);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .free-item h4 {
+    font-size: 14px;
+    color: var(--teal);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .free-item ul { list-style: none; font-size: 12px; color: #7a9090; }
+  .free-item ul li { padding: 3px 0 3px 16px; position: relative; }
+  .free-item ul li::before { content: '✓'; position: absolute; left: 0; color: var(--teal); font-size: 10px; }
+
+  /* ---- FOOTER ---- */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 40px 20px;
+  }
+  footer .f-name {
+    font-family: 'Noto Serif Bengali', serif;
+    font-size: 20px;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  footer .f-sub { font-size: 13px; color: var(--muted); }
+
+  /* ---- ANIMATIONS ---- */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 60px rgba(245,200,66,0.3), 0 0 120px rgba(245,200,66,0.1); }
+    50% { box-shadow: 0 0 80px rgba(245,200,66,0.5), 0 0 160px rgba(245,200,66,0.2); }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-8px); }
+  }
+
+  /* Step numbers */
+  .steps {
+    counter-reset: step;
+    list-style: none;
+    margin: 14px 0;
+  }
+  .steps li {
+    counter-increment: step;
+    padding: 7px 0 7px 36px;
+    position: relative;
+    font-size: 14px;
+    color: #a8b4c4;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .steps li:last-child { border-bottom: none; }
+  .steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    width: 22px;
+    height: 22px;
+    background: rgba(245,200,66,0.15);
+    color: var(--gold);
+    border-radius: 50%;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    top: 9px;
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0;
+  }
+
+  /* Tag chips */
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .tag {
+    background: rgba(245,200,66,0.1);
+    border: 1px solid rgba(245,200,66,0.2);
+    color: var(--gold);
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 12px;
+  }
+  .tag.teal { background: rgba(0,212,170,0.1); border-color: rgba(0,212,170,0.2); color: var(--teal); }
+  .tag.rose { background: rgba(255,107,138,0.1); border-color: rgba(255,107,138,0.2); color: var(--rose); }
+
+  @media (max-width: 768px) {
+    .module-time { display: none; }
+    .wide-card { padding: 22px; }
+    .summary-box { padding: 24px; }
+    .mindmap-desc { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="badge">🎯 পার্সোনাল সেলফ-স্টাডি গাইড</div>
+  <div class="hero-name">রাকিবুল হাসান অন্তর — তোমার জন্য তৈরি</div>
+  <h1>টাইম চেম্বার<br>সম্পূর্ণ গাইড</h1>
+  <p class="hero-sub">
+    সময় ব্যবস্থাপনা, মনোযোগ, স্বপ্ন পূরণ — এই তিনটি বিষয়ে <strong>৩৭+ ঘণ্টার</strong> জ্ঞানকে তোমার ভাষায়, তোমার মতো করে বুঝিয়ে দেওয়া হয়েছে।
+  </p>
+  <div class="stats-row">
+    <div class="stat-pill"><div class="num">০২</div><div class="lbl">মডিউল</div></div>
+    <div class="stat-pill"><div class="num">১৮</div><div class="lbl">লেকচার</div></div>
+    <div class="stat-pill"><div class="num">৩৭+</div><div class="lbl">ঘণ্টা কন্টেন্ট</div></div>
+    <div class="stat-pill"><div class="num">১০০%</div><div class="lbl">বাংলায়</div></div>
+  </div>
+  <div class="scroll-hint">নিচে স্ক্রল করো</div>
+</section>
+
+<!-- ============ STICKY NAV ============ -->
+<nav class="sticky-nav">
+  <div class="nav-inner">
+    <a href="#summary" class="nav-link">📋 সার-সংক্ষেপ</a>
+    <a href="#module1" class="nav-link">🔥 মডিউল ০১</a>
+    <a href="#module2" class="nav-link">💡 মডিউল ০২</a>
+    <a href="#mindmap" class="nav-link">🕸️ ভিজ্যুয়াল ম্যাপ</a>
+    <a href="#plan" class="nav-link">📅 অ্যাকশন প্ল্যান</a>
+    <a href="#free" class="nav-link">🆓 ফ্রি রিসোর্স</a>
+  </div>
+</nav>
+
+<!-- ============ SUMMARY ============ -->
+<section class="section" id="summary">
+  <div class="section-label">কোর্স পরিচিতি</div>
+  <h2 class="section-title">সম্পূর্ণ <span>কোর্সের সারকথা</span></h2>
+  <p class="section-desc">পুরো কোর্সটা পড়ার আগে, এখানে দুটো প্যারায় বুঝে নাও — এই কোর্সটা আসলে কী শেখাতে চায়।</p>
+
+  <div class="summary-box">
+    <p>
+      এই কোর্সটা শুধু "সময় ব্যবস্থাপনা" শেখার কোর্স না — এটা আসলে একটা <strong>জীবন পরিবর্তনের যাত্রা।</strong> এখানে শেখানো হয় কীভাবে তুমি তোমার জীবনের লক্ষ্য বের করবে, সেই লক্ষ্যে পৌঁছানোর জন্য সময়কে সঠিকভাবে কাজে লাগাবে, এবং মনোযোগ ধরে রাখবে — যাতে পৃথিবীর সেরা ১% মানুষের মতো তুমিও সফল হতে পারো। রাকিবুল হাসান অন্তর, মনে রেখো — তুমি যে কোর্সটা ফ্রিতে শিখতে চাইছ, এর মধ্যে এমন জ্ঞান আছে যা অনেক টাকা খরচ করা মানুষও সঠিকভাবে কাজে লাগায় না।
+    </p>
+    <p>
+      কোর্সটা দুটো মডিউলে ভাগ করা। <strong>প্রথম মডিউলে</strong> শেখানো হয় ক্যারিয়ার, জীবন পরিচালনা, স্বপ্ন রক্ষা করা, সফলতার কৌশল, মনোযোগ ঠিক করা, এবং লোহার মতো শক্ত মন তৈরি করা। <strong>দ্বিতীয় মডিউলে</strong> শেখানো হয় কলেজ জীবন, বিক্ষিপ্ততা দূর করা, একাডেমিক পরিকল্পনা, ভর্তি গাইডলাইন, এবং ৭ মাসে HSC সিলেবাস শেষ করার রোডম্যাপ। মোট ৩৭ ঘণ্টারও বেশি কন্টেন্ট — একটা সম্পূর্ণ জীবন পরিবর্তনের কোর্স!
+    </p>
+  </div>
+
+  <div class="quote-banner">
+    <div class="q-text">"যে জ্ঞান তুমি আজ নেবে, সেটা কেউ তোমার কাছ থেকে কেড়ে নিতে পারবে না।<br>টাকা না থাকলেও জ্ঞান অর্জন থামবে না।"</div>
+    <div class="q-by">— রাকিবুল হাসান অন্তর, তোমার নিজের অঙ্গীকার 🔥</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============ MODULE 01 ============ -->
+<section class="section" id="module1">
+  <div class="section-label">Module 01</div>
+  <h2 class="section-title">ক্লাসেস — <span>জীবন পরিবর্তনের ভিত্তি</span></h2>
+  <p class="section-desc">৭টি ক্লাস · ১৯ ঘণ্টা ৩৬ মিনিট — এটাই কোর্সের সবচেয়ে গুরুত্বপূর্ণ অংশ</p>
+
+  <div class="module-header m1">
+    <div class="module-num">০১</div>
+    <div class="module-info">
+      <h2>Classes — মূল ক্লাস সমূহ</h2>
+      <p>ক্যারিয়ার থেকে শুরু করে লোহার মন গড়া পর্যন্ত — জীবনের সবচেয়ে গুরুত্বপূর্ণ দক্ষতাগুলো</p>
+    </div>
+    <div class="module-time">
+      <div class="t">১৯:৩৬</div>
+      <div class="tl">ঘণ্টা · মিনিট</div>
+    </div>
+  </div>
+
+  <!-- Card 1 -->
+  <div class="wide-card gold-accent">
+    <div class="wide-card-header">
+      <div class="wide-card-icon icon-gold">🎯</div>
+      <div class="wide-card-title">
+        <h3>ক্লাস ০১ — ক্যারিয়ার এবং উদ্দেশ্য</h3>
+        <div class="etitle">Class 01: Career and Purpose</div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="col-block">
+        <h4>📚 কী শিখবে?</h4>
+        <ul class="learn-list">
+          <li>জীবনে কী করতে চাই — সেটা বের করার সঠিক পদ্ধতি</li>
+          <li>ক্যারিয়ার (Career) আর শুধু চাকরি — এই দুটোর পার্থক্য কী?</li>
+          <li>নিজের Passion (আগ্রহ) খোঁজার উপায়</li>
+          <li>লক্ষ্যহীন মানুষ কেন সবসময় পিছিয়ে পড়ে</li>
+          <li>Purpose (জীবনের কারণ) কীভাবে খুঁজে পাওয়া যায়</li>
+        </ul>
+      </div>
+      <div class="col-block">
+        <h4>📝 ধাপে ধাপে শেখো</h4>
+        <ol class="steps">
+          <li>নিজেকে জিজ্ঞেস করো — "আমি যদি টাকার চিন্তা না করতাম, কী করতাম?"</li>
+          <li>তোমার ৫টি শক্তি লিখে ফেলো কাগজে</li>
+          <li>তোমার ৩টি দুর্বলতাও লিখো — সততার সাথে</li>
+          <li>এখন সিদ্ধান্ত নাও — কোন ক্যারিয়ারে এই শক্তিগুলো কাজে লাগবে?</li>
+          <li>সেই লক্ষ্যটা একটা কাগজে লিখে রোজ সকালে পড়ো</li>
+        </ol>
+      </div>
+    </div>
+    <div class="example-box">
+      <div class="ex-label">🇧🇩 বাস্তব উদাহরণ</div>
+      <p>ধরো, তুমি মিরপুরের রাকিবুল। তুমি ভাবছ ডাক্তার হবে কারণ মা-বাবা চায়। কিন্তু ভেতরে ভেতরে তুমি কম্পিউটারে গ্রাফিক্স বানাতে ভালোবাসো। এই ক্লাসে শিখবে — কীভাবে নিজের সত্যিকারের ইচ্ছাটা চিনে নিতে হয়, এবং সেটাকেই ক্যারিয়ার বানানোর পথ খুঁজতে হয়।</p>
+    </div>
+    <div class="free-box">
+      <div class="free-label">🆓 ফ্রিতে প্র্যাকটিস করো</div>
+      <ul>
+        <li>YouTube-এ "Ikigai Bengali" লিখে সার্চ করো — জীবনের উদ্দেশ্য খোঁজার জাপানি পদ্ধতি বাংলায় শিখো</li>
+        <li>একটা সাদা কাগজে "আমার স্বপ্ন" লিখে ৩০ মিনিট ভেবে লেখো</li>
+        <li>TED Talks: "How to find work you love" — Simon Sinek (ফ্রি YouTube)</li>
+        <li>Notion বা Google Docs-এ একটা Career Journal শুরু করো (সম্পূর্ণ ফ্রি)</li>
+      </ul>
+    </div>
+    <div class="tags">
+      <span class="tag">🎯 লক্ষ্য নির্ধারণ</span>
+      <span class="tag">💡 Passion খোঁজা</span>
+      <span class="tag teal">ক্যারিয়ার পরিকল্পনা</span>
+    </div>
+  </div>
+
+  <!-- Card 2 -->
+  <div class="wide-card">
+    <div class="wide-card-header">
+      <div class="wide-card-icon icon-teal">⚖️</div>
+      <div class="wide-card-title">
+        <h3>ক্লাস ০২ — জীবন পরিচালনা করা</h3>
+        <div class="etitle">Class 02: Managing Life</div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="col-block">
+        <h4>📚 কী শিখবে?</h4>
+        <ul class="learn-list">
+          <li>একসাথে পড়াশোনা, পরিবার, বন্ধু, শখ — সব সামলানোর উপায়</li>
+          <li>Priority (অগ্রাধিকার) কীভাবে ঠিক করতে হয়</li>
+          <li>রুটিন তৈরি করার সঠিক পদ্ধতি যেটা টিকে থাকে</li>
+          <li>Energy Management — শুধু সময় না, শক্তিও ব্যবস্থাপনা দরকার</li>
+          <li>কোন কাজটা "আর্জেন্ট" আর কোনটা "গুরুত্বপূর্ণ" — পার্থক্য বোঝা</li>
+        </ul>
+      </div>
+      <div class="col-block">
+        <h4>📝 ধাপে ধাপে শেখো</h4>
+        <ol class="steps">
+          <li>কাল সকালে উঠে ৩টা সবচেয়ে গুরুত্বপূর্ণ কাজ লিখো — "MIT" (Most Important Tasks)</li>
+          <li>Eisenhower Matrix বানাও: ৪ ভাগে কাজ ভাগ করো — জরুরি+গুরুত্বপূর্ণ, জরুরি+কম গুরুত্বপূর্ণ, কম জরুরি+গুরুত্বপূর্ণ, কম জরুরি+কম গুরুত্বপূর্ণ</li>
+          <li>ঘুমানোর আগে পরের দিনের প্ল্যান করো — মাত্র ১০ মিনিট</li>
+          <li>সপ্তাহের শেষে রিভিউ করো — কতটুকু হলো?</li>
+        </ol>
+      </div>
+    </div>
+    <div class="example-box">
+      <div class="ex-label">🇧🇩 বাস্তব উদাহরণ</div>
+      <p>তুমি HSC পরীক্ষার্থী। পড়াশোনা আছে, টিউশনি আছে, বাড়ির কাজও আছে। মনে হয় ২৪ ঘণ্টা যথেষ্ট না। এই ক্লাসে শিখবে — রাত ১০টার পরে ফোন বন্ধ রেখে মাত্র ২ ঘণ্টা পড়লেও সারাদিন এলোমেলো পড়ার চেয়ে বেশি মনে থাকে। সময় বেশি দিতে হয় না — স্মার্টভাবে দিতে হয়।</p>
+    </div>
+    <div class="free-box">
+      <div class="free-label">🆓 ফ্রিতে প্র্যাকটিস করো</div>
+      <ul>
+        <li>Google Calendar ব্যবহার করো — ফ্রি, পুরো সপ্তাহ প্ল্যান করো</li>
+        <li>Todoist বা Microsoft To-Do — ফ্রি টাস্ক ম্যানেজার অ্যাপ</li>
+        <li>YouTube: "Eisenhower Matrix Bangla" দেখো</li>
+        <li>Notion free template: Daily planner ডাউনলোড করো</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Card 3 -->
+  <div class="wide-card rose-accent">
+    <div class="wide-card-header">
+      <div class="wide-card-icon icon-rose">💔</div>
+      <div class="wide-card-title">
+        <h3>ক্লাস ০৩ — আমরা কীভাবে নিজের স্বপ্ন নষ্ট করি</h3>
+        <div class="etitle">Class 03: How We Kill Our Own Dream</div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="col-block">
+        <h4>📚 কী শিখবে?</h4>
+        <ul class="learn-list">
+          <li>Procrastination (কাজ ফেলে রাখার অভ্যাস) — কেন হয় এবং কীভাবে ভাঙবে</li>
+          <li>নিজেকে নিজেই ছোট করে দেখার বিপদ</li>
+          <li>"আমার দ্বারা হবে না" — এই চিন্তাটা কোথা থেকে আসে?</li>
+          <li>সামাজিক চাপ ও পরিবারের প্রত্যাশা কীভাবে স্বপ্ন মেরে ফেলে</li>
+          <li>Comfort Zone (নিরাপদ গণ্ডি) থেকে বের হওয়ার উপায়</li>
+          <li>Negative Self-Talk (নিজের সম্পর্কে খারাপ কথা বলা) বন্ধ করার পদ্ধতি</li>
+        </ul>
+      </div>
+      <div class="col-block">
+        <h4>📝 ধাপে ধাপে শেখো</h4>
+        <ol class="steps">
+          <li>তোমার সবচেয়ে বড় স্বপ্নটা লিখো। তারপর লিখো — "কেন আমি এটা পারব না?" এই উত্তরগুলোই হলো তোমার "ড্রিম কিলার"।</li>
+          <li>প্রতিটা "পারব না"-এর পাশে লিখো — "কিন্তু যদি চেষ্টা করি তাহলে কী হতে পারে?"</li>
+          <li>এই সপ্তাহে একটা ছোট কাজ করো যেটা করতে ভয় পাও — সেটাই Comfort Zone ভাঙা</li>
+          <li>রোজ ঘুমানোর আগে ৩টা ভালো কাজ লিখো যা আজ করেছ — এটা Negative Self-Talk কমায়</li>
+        </ol>
+      </div>
+    </div>
+    <div class="example-box">
+      <div class="ex-label">🇧🇩 বাস্তব উদাহরণ</div>
+      <p>ঢাকার একটা ছেলে ইউটিউব চ্যানেল খুলতে চায়। কিন্তু ভাবে — "লোকে হাসবে", "ভিউ হবে না", "আমি তো ভালো বলতে পারি না।" এই তিনটা চিন্তাই তার স্বপ্নকে মেরে ফেলছে — অন্য কেউ না, সে নিজে! এই ক্লাস শেখাবে — এই চিন্তাগুলো কোথা থেকে আসে এবং কীভাবে এগুলোকে পরাজিত করতে হয়।</p>
+    </div>
+    <div class="free-box">
+      <div class="free-label">🆓 ফ্রিতে প্র্যাকটিস করো</div>
+      <ul>
+        <li>YouTube: "Procrastination কীভাবে দূর করবেন" বাংলায় অনেক ভিডিও আছে</li>
+        <li>"Atomic Habits" বইটার বাংলা সারসংক্ষেপ YouTube-এ খোঁজো</li>
+        <li>একটা ছোট জার্নাল রাখো — রোজ ১ পাতা লিখো নিজের ভয় আর স্বপ্ন নিয়ে</li>
+        <li>Mel Robbins এর "5 Second Rule" — YouTube-এ ফ্রি টেড টক দেখো</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Card 4 -->
+  <div class="wide-card violet-accent">
+    <div class="wide-card-header">
+      <div class="wide-card-icon icon-violet">🏆</div>
+      <div class="wide-card-title">
+        <h3>ক্লাস ০৪ — পৃথিবীর সেরা ১%-এর মতো সফল হও</h3>
+        <div class="etitle">Class 04: Become Successful like Top 1% of the World</div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="col-block">
+        <h4>📚 কী শিখবে?</h4>
+        <ul class="learn-list">
+          <li>পৃথিবীর সেরা মানুষরা সকালে কী করে?</li>
+          <li>Discipline (শৃঙ্খলা) বনাম Motivation (অনুপ্রেরণা) — কোনটা বেশি কার্যকর?</li>
+          <li>দীর্ঘমেয়াদী চিন্তা করতে শেখা — "আজকের আমি" বনাম "১০ বছর পরের আমি"</li>
+          <li>Compound Effect (যৌগিক প্রভাব) — ছোট ছোট অভ্যাস কীভাবে বড় সাফল্য আনে</li>
+          <li>সফল মানুষদের ৫টি কমন অভ্যাস যা তুমি আজই শুরু করতে পারো</li>
+        </ul>
+      </div>
+      <div class="col-block">
+        <h4>📝 ধাপে ধাপে শেখো</h4>
+        <ol class="steps">
+          <li>আজ থেকে সকালে উঠে ৫ মিনিট চুপচাপ বসো — কোনো ফোন না (Morning Stillness)</li>
+          <li>রোজ ১টা নতুন জিনিস শেখো — যত ছোটই হোক</li>
+          <li>প্রতিদিন ৩০ মিনিট পড়ো (যেকোনো ভালো বই বা আর্টিকেল)</li>
+          <li>"সফল মানুষ Motivation পেলে কাজ করে না — সে কাজ করতে করতে Motivation পায়" — এটা মনে রাখো</li>
+          <li>তোমার ১ বছরের লক্ষ্য লিখো, তারপর ভাঙো — মাসিক, সাপ্তাহিক, দৈনিক কাজে</li>
+        </ol>
+      </div>
+    </div>
+    <div class="example-box">
+      <div class="ex-label">🇧🇩 বাস্তব উদাহরণ</div>
+      <p>বিল গেটস, ওয়ারেন বাফেট — এরা প্রতিদিন গড়ে ৩-৫ ঘণ্টা বই পড়েন। তুমি যদি রোজ মাত্র ১৫ মিনিট পড়ো, এক বছরে প্রায় ১৫টা বই পড়া হবে। ৫ বছরে ৭৫টা বই! এটাই Compound Effect — ছোট ছোট কাজের বিশাল ফল। তুমি ধানমন্ডির ছেলে হও বা রাজশাহীর — এই নিয়ম সবার জন্যই কাজ করে।</p>
+    </div>
+    <div class="free-box">
+      <div class="free-label">🆓 ফ্রিতে প্র্যাকটিস করো</div>
+      <ul>
+        <li>YouTube: "Morning Routine of Successful People Bangla"</li>
+        <li>"The Compound Effect" বইটার বাংলা সারসংক্ষেপ YouTube-এ পাবে</li>
+        <li>Huberman Lab Podcast (ফ্রি) — সফলতার বিজ্ঞান শেখো</li>
+        <li>রোজ সকালে ৫ মিনিট Journaling করো — সম্পূর্ণ ফ্রি, কাগজ-কলম লাগবে</li>
+      </ul>
+    </div>
+    <div class="tags">
+      <span class="tag">🏆 সফলতার কৌশল</span>
+      <span class="tag">⚡ Discipline</span>
+      <span class="tag rose">Compound Effect</span>
+    </div>
+  </div>
+
+  <!-- Card 5 -->
+  <div class="wide-card">
+    <div class="wide-card-header">
+      <div class="wide-card-icon icon-teal">🔬</div>
+      <div class="wide-card-title">
+        <h3>ফোকাস ফিক্সিং সেশন — মনোযোগ ঠিক করার বিজ্ঞান</h3>
+        <div class="etitle">Focus Fixing Session</div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="col-block">
+        <h4>📚 কী শিখবে?</h4>
+        <ul class="learn-list">
+          <li>মনোযোগ কেন নষ্ট হয় — মস্তিষ্কের বিজ্ঞান সহজ ভাষায়</li>
+          <li>Dopamine (ডোপামিন) কীভাবে আমাদের মনোযোগ চুরি করে?</li>
+          <li>Deep Work কী এবং কীভাবে করতে হয়?</li>
+          <li>Pomodoro Technique — ২৫ মিনিট পড়া + ৫ মিনিট বিরতি</li>
+          <li>ফোন ও সোশ্যাল মিডিয়া থেকে পড়ার সময় দূরে থাকার উপায়</li>
+          <li>পড়ার জায়গা তৈরি করার নিয়ম</li>
+        </ul>
+      </div>
+      <div class="col-block">
+        <h4>📝 ধাপে ধাপে শেখো</h4>
+        <ol class="steps">
+          <li>পড়তে বসার আগে ফোন অন্য ঘরে রাখো — "দৃষ্টির বাইরে, মনের বাইরে"</li>
+          <li>টাইমার দাও ২৫ মিনিট — এই ২৫ মিনিট শুধু পড়বে, অন্য কিছু না</li>
+          <li>টাইমার শেষে ৫ মিনিট উঠে হাঁটো বা পানি খাও</li>
+          <li>এইভাবে ৪টা সেশন শেষে ৩০ মিনিটের বড় বিরতি নাও</li>
+          <li>নোটিফিকেশন সব বন্ধ করো পড়ার সময়</li>
+        </ol>
+      </div>
+    </div>
+    <div class="example-box">
+      <div class="ex-label">🇧🇩 বাস্তব উদাহরণ</div>
+      <p>রাকিবুল, তুমি পড়তে বসো কিন্তু ১০ মিনিট পরেই ফোনটা হাতে নিয়ে Facebook বা TikTok-এ চলে যাও? এটা তোমার দোষ না — এটা ডোপামিনের খেলা! এই ক্লাসে শিখবে — ব্রেন কীভাবে কাজ করে এবং কীভাবে ব্রেনকে "ধোঁকা" দিয়ে মনোযোগ ধরে রাখতে হয়। Pomodoro টেকনিক চেষ্টা করলে দেখবে পড়া অনেক সহজ হয়ে যায়।</p>
+    </div>
+    <div class="free-box">
+      <div class="free-label">🆓 ফ্রিতে প্র্যাকটিস করো</div>
+      <ul>
+        <li>Pomofocus.io — ফ্রি Pomodoro Timer ওয়েবসাইট</li>
+        <li>Forest App (ফ্রি ভার্সন) — পড়ার সময় গাছ লাগাও, ফোন ধরলে গাছ মরে!</li>
+        <li>YouTube: "Focus Music Lofi Bangla Study" — মনোযোগ বাড়ানোর মিউজিক</li>
+        <li>Cal Newport এর "Deep Work" — YouTube-এ বাংলা সারসংক্ষেপ আছে</li>
+        <li>স্ক্রিন টাইম অ্যাপ দিয়ে রোজ কতক্ষণ ফোন দেখছ সেটা ট্র্যাক করো</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Card 6 & 7 - Iron Mind -->
+  <div class="wide-card gold-accent">
+    <div class="wide-card-header">
+      <div class="wide-card-icon icon-gold">⚒️</div>
+      <div class="wide-card-title">
+        <h3>আয়রন মাইন্ড ক্লাস ১ ও ২ — লোহার মন গড়ো</h3>
+        <div class="etitle">Iron Mind Class 1 & 2</div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="col-block">
+        <h4>📚 কী শিখবে?</h4>
+        <ul class="learn-list">
+          <li>Mental Toughness (মানসিক দৃঢ়তা) কী এবং কেন দরকার?</li>
+          <li>কঠিন পরিস্থিতিতে — পরীক্ষায় খারাপ করলে, ফেল করলে — কীভাবে টিকে থাকবে?</li>
+          <li>Resilience (বাধা পেলেও এগিয়ে যাওয়ার ক্ষমতা) কীভাবে তৈরি হয়?</li>
+          <li>নেতিবাচক মানুষ ও পরিবেশ থেকে নিজেকে রক্ষা করা</li>
+          <li>Pressure-এর মধ্যেও ঠান্ডা মাথায় সিদ্ধান্ত নেওয়া</li>
+          <li>নিজের সাথে নিজের কথা বলা (Self-Talk) কীভাবে পজিটিভ রাখবে?</li>
+        </ul>
+      </div>
+      <div class="col-block">
+        <h4>📝 ধাপে ধাপে শেখো</h4>
+        <ol class="steps">
+          <li>যখন কিছু ঠিকমতো হয়নি — থামো, ৩টা গভীর শ্বাস নাও, তারপর ভাবো "এটা থেকে কী শিখলাম?"</li>
+          <li>রোজ ভোরে নিজেকে বলো — "আমি পারব, আমি শিখছি, আমি বাড়ছি।"</li>
+          <li>কঠিন কাজটাই আগে করো — তাহলে বাকি দিন সহজ মনে হবে</li>
+          <li>যে মানুষরা তোমাকে নিচে টানে — তাদের থেকে সময় কমাও</li>
+          <li>নিজের "কঠিন মুহূর্ত" ডায়েরিতে লিখো — পরে দেখবে এগুলো তোমাকে শক্তিশালী করেছে</li>
+        </ol>
+      </div>
+    </div>
+    <div class="example-box">
+      <div class="ex-label">🇧🇩 বাস্তব উদাহরণ</div>
+      <p>HSC পরীক্ষায় Physics-এ খারাপ হলো। সবাই বলছে "এখন কী হবে?" তুমি ভেঙে পড়লে সত্যিই শেষ হয়ে যাবে। কিন্তু Iron Mind মানুষ বলে — "এটা একটা তথ্য মাত্র। এরপর কী করতে হবে?" মানসিক দৃঢ়তা মানে কষ্ট না পাওয়া না — মানসিক দৃঢ়তা মানে কষ্ট পাওয়ার পরেও এগিয়ে যাওয়া।</p>
+    </div>
+    <div class="free-box">
+      <div class="free-label">🆓 ফ্রিতে প্র্যাকটিস করো</div>
+      <ul>
+        <li>YouTube: "Stoicism Bangla" — প্রাচীন গ্রিক দর্শন যা মানসিক শক্তি দেয়</li>
+        <li>David Goggins এর জীবনী পড়ো/দেখো — YouTube-এ ফ্রিতে আছে</li>
+        <li>রোজ ১টা কঠিন কাজ করো যা করতে ইচ্ছে করে না — এটাই Iron Mind তৈরির অনুশীলন</li>
+        <li>Breathwork (শ্বাস-প্রশ্বাসের ব্যায়াম) — ফ্রি YouTube tutorial দেখো</li>
+      </ul>
+    </div>
+    <div class="tags">
+      <span class="tag">⚒️ Mental Toughness</span>
+      <span class="tag">🛡️ Resilience</span>
+      <span class="tag teal">মানসিক দৃঢ়তা</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============ MODULE 02 ============ -->
+<section class="section" id="module2">
+  <div class="section-label">Module 02</div>
+  <h2 class="section-title">ডিসকাশনস — <span>ব্যবহারিক জীবনের শিক্ষা</span></h2>
+  <p class="section-desc">১১টি আলোচনা-সেশন · ১৭ ঘণ্টা ৫৪ মিনিট — বাস্তব জীবনের সমস্যার সমাধান</p>
+
+  <div class="module-header m2">
+    <div class="module-num">০২</div>
+    <div class="module-info">
+      <h2>Discussions — বাস্তব আলোচনা সেশন</h2>
+      <p>কলেজ লাইফ, বিক্ষিপ্ততা, একাডেমিক গাইডলাইন ও HSC রোডম্যাপ</p>
+    </div>
+    <div class="module-time">
+      <div class="t">১৭:৫৪</div>
+      <div class="tl">ঘণ্টা · মিনিট</div>
+    </div>
+  </div>
+
+  <div class="cards-grid">
+
+    <!-- D1 -->
+    <div class="card teal">
+      <div class="card-icon icon-teal">🎓</div>
+      <div class="card-num">DISCUSSION · ০১</div>
+      <h3>কলেজ লাইফের সব কথা</h3>
+      <div class="english-title">All About College Life</div>
+      <div class="card-body">
+        <ul class="learn-list">
+          <li>কলেজে উঠে প্রথম যে ভুলগুলো সবাই করে</li>
+          <li>বন্ধু নির্বাচন — সঠিক মানুষের সাথে থাকার গুরুত্ব</li>
+          <li>পড়াশোনা + সামাজিক জীবন ব্যালেন্স করা</li>
+          <li>কলেজের পরিবেশকে নিজের পক্ষে কাজে লাগানো</li>
+        </ul>
+      </div>
+      <div class="example-box">
+        <div class="ex-label">💡 মূল শিক্ষা</div>
+        <p>কলেজের প্রথম ৬ মাস তোমার পুরো জীবনের দিক ঠিক করে দেয়। এই সময়টা অবহেলা করো না।</p>
+      </div>
+      <div class="free-box">
+        <div class="free-label">🆓 ফ্রি রিসোর্স</div>
+        <ul>
+          <li>YouTube: "College Life Tips Bangladesh"</li>
+          <li>Quora বা Reddit-এ অভিজ্ঞদের পরামর্শ পড়ো</li>
+          <li>কলেজের সিনিয়রদের সাথে কথা বলো</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- D2 -->
+    <div class="card rose">
+      <div class="card-icon icon-rose">📵</div>
+      <div class="card-num">DISCUSSION · ০২</div>
+      <h3>বিক্ষিপ্ততা চিরতরে দূর করো</h3>
+      <div class="english-title">Remove Distractions Permanently</div>
+      <div class="card-body">
+        <ul class="learn-list">
+          <li>কোন কোন জিনিস তোমার সময় চুরি করছে?</li>
+          <li>Social Media Detox (সোশ্যাল মিডিয়া থেকে বিরতি) কীভাবে নেবে?</li>
+          <li>ফোনের নোটিফিকেশন কমানোর সঠিক পদ্ধতি</li>
+          <li>পরিবেশ ডিজাইন — তোমার চারপাশ যদি পড়ার উপযুক্ত হয়</li>
+        </ul>
+      </div>
+      <div class="example-box">
+        <div class="ex-label">💡 মূল শিক্ষা</div>
+        <p>Distraction কমানো মানে Willpower বাড়ানো না — মানে হলো প্রলোভনটাকে চোখের সামনে না রাখা।</p>
+      </div>
+      <div class="free-box">
+        <div class="free-label">🆓 ফ্রি রিসোর্স</div>
+        <ul>
+          <li>Stay Focused App (Android) — ফ্রি ওয়েবসাইট ব্লকার</li>
+          <li>Digital Wellbeing (Android) — স্ক্রিন টাইম লিমিট দাও</li>
+          <li>YouTube: "Digital Detox Bengali"</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- D3 -->
+    <div class="card gold">
+      <div class="card-icon icon-gold">🔍</div>
+      <div class="card-num">DISCUSSION · ০৩</div>
+      <h3>কোথায় উন্নতি করতে হবে?</h3>
+      <div class="english-title">Where Should We Improve</div>
+      <div class="card-body">
+        <ul class="learn-list">
+          <li>নিজের দুর্বলতা সৎভাবে চেনার পদ্ধতি</li>
+          <li>Self-Assessment (নিজে নিজে মূল্যায়ন) কীভাবে করবে?</li>
+          <li>কোন বিষয়ে উন্নতি করলে সবচেয়ে বেশি ফল পাবে?</li>
+          <li>Feedback নেওয়ার সঠিক মানসিকতা</li>
+        </ul>
+      </div>
+      <div class="example-box">
+        <div class="ex-label">💡 মূল শিক্ষা</div>
+        <p>নিজের দুর্বলতা না চিনলে শক্তিশালী হওয়া সম্ভব না। এটা জানাই সবচেয়ে বড় সাহস।</p>
+      </div>
+      <div class="free-box">
+        <div class="free-label">🆓 ফ্রি রিসোর্স</div>
+        <ul>
+          <li>SWOT Analysis নিজের জন্য করো — কাগজ-কলম লাগবে</li>
+          <li>16Personalities.com — ফ্রি ব্যক্তিত্ব পরীক্ষা</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- D4 -->
+    <div class="card violet">
+      <div class="card-icon icon-violet">💬</div>
+      <div class="card-num">DISCUSSION · ০৪</div>
+      <h3>খোলামেলা আলোচনা সেশন</h3>
+      <div class="english-title">Discussion</div>
+      <div class="card-body">
+        <ul class="learn-list">
+          <li>ছাত্রছাত্রীদের সবচেয়ে কমন সমস্যার সমাধান</li>
+          <li>প্রশ্ন-উত্তর পর্ব থেকে সেরা শিক্ষাগুলো</li>
+          <li>অন্যদের অভিজ্ঞতা থেকে শেখা</li>
+          <li>বাস্তব জীবনের কেস স্টাডি আলোচনা</li>
+        </ul>
+      </div>
+      <div class="example-box">
+        <div class="ex-label">💡 মূল শিক্ষা</div>
+        <p>অন্যের ভুল থেকে শিখলে নিজের জীবনে সেই ভুল করতে হয় না — এটাই বুদ্ধিমানের কাজ।</p>
+      </div>
+      <div class="free-box">
+        <div class="free-label">🆓 ফ্রি রিসোর্স</div>
+        <ul>
+          <li>Study groups বা অনলাইন ফোরামে যোগ দাও</li>
+          <li>Facebook Study Groups Bangladesh</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- D5 -->
+    <div class="card teal">
+      <div class="card-icon icon-teal">🤝</div>
+      <div class="card-num">DISCUSSION · ০৫</div>
+      <h3>আমরা সবাই বিক্রেতা</h3>
+      <div class="english-title">We All Are Salesman</div>
+      <div class="card-body">
+        <ul class="learn-list">
+          <li>নিজেকে উপস্থাপন করার শিল্প</li>
+          <li>Communication Skills (যোগাযোগ দক্ষতা) কেন জরুরি?</li>
+          <li>ভর্তি পরীক্ষায় নিজেকে "বিক্রি" করার মানে কী?</li>
+          <li>জীবনের প্রতিটি ক্ষেত্রে Persuasion (মানুষকে বোঝানো) দরকার</li>
+          <li>নিজের দক্ষতা অন্যদের সামনে তুলে ধরা</li>
+        </ul>
+      </div>
+      <div class="example-box">
+        <div class="ex-label">💡 মূল শিক্ষা</div>
+        <p>ভর্তি পরীক্ষায় ভালো নম্বর পাওয়া, ইন্টারভিউতে ভালো করা, বন্ধুদের সাথে মিলেমিশে চলা — সবই এক ধরনের "বিক্রি"।</p>
+      </div>
+      <div class="free-box">
+        <div class="free-label">🆓 ফ্রি রিসোর্স</div>
+        <ul>
+          <li>YouTube: "Public Speaking Tips Bangla"</li>
+          <li>Toastmasters Club (বাংলাদেশে আছে) — ফ্রি মেম্বারশিপ</li>
+          <li>"How to Win Friends" বাংলা সারসংক্ষেপ YouTube-এ</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- D6 & D7 -->
+    <div class="card gold">
+      <div class="card-icon icon-gold">📖</div>
+      <div class="card-num">DISCUSSION · ০৬ - ০৭</div>
+      <h3>একাডেমিক গাইডলাইন (লাইভ পার্ট ১ ও ২)</h3>
+      <div class="english-title">Academic Guidelines Live Part 01 & 02</div>
+      <div class="card-body">
+        <ul class="learn-list">
+          <li>পড়াশোনার সঠিক পদ্ধতি — Rote Learning বনাম Conceptual Learning</li>
+          <li>পরীক্ষার প্রস্তুতি কখন ও কীভাবে শুরু করবে?</li>
+          <li>নোট তৈরির সঠিক পদ্ধতি — মনে রাখার বিজ্ঞান</li>
+          <li>পরীক্ষার আগের রাতে কী করবে, কী করবে না</li>
+          <li>গ্রুপ স্টাডি করার সঠিক নিয়ম</li>
+          <li>Spaced Repetition (ব্যবধানে পুনরাবৃত্তি) পদ্ধতিতে পড়া</li>
+        </ul>
+      </div>
+      <div class="example-box">
+        <div class="ex-label">💡 মূল শিক্ষা</div>
+        <p>পরীক্ষার আগে রাত জেগে পড়া ভালো ফল দেয় না। সপ্তাহ ধরে অল্প অল্প পড়া — এটাই বিজ্ঞানসম্মত পদ্ধতি।</p>
+      </div>
+      <div class="free-box">
+        <div class="free-label">🆓 ফ্রি রিসোর্স</div>
+        <ul>
+          <li>Anki App — Spaced Repetition ফ্লাশকার্ড (সম্পূর্ণ ফ্রি)</li>
+          <li>Notion বা OneNote-এ নোট নাও</li>
+          <li>YouTube: "Study Techniques Science Bangla"</li>
+          <li>Khan Academy Bangla — ফ্রি একাডেমিক কন্টেন্ট</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- D8 -->
+    <div class="card violet">
+      <div class="card-icon icon-violet">🏫</div>
+      <div class="card-num">DISCUSSION · ০৮</div>
+      <h3>ভর্তি গাইডলাইন (মাহিরের সাথে)</h3>
+      <div class="english-title">Admission Guideline with Mahir</div>
+      <div class="card-body">
+        <ul class="learn-list">
+          <li>বিশ্ববিদ্যালয় ভর্তি পরীক্ষার প্রস্তুতি কখন শুরু করবে?</li>
+          <li>কোন বিশ্ববিদ্যালয়ে কোন বিষয়ে পড়বে — সিদ্ধান্ত নেওয়ার পদ্ধতি</li>
+          <li>ভর্তি পরীক্ষার সিলেবাস বিশ্লেষণ</li>
+          <li>প্রিভিয়াস ইয়ারের প্রশ্ন সমাধানের কৌশল</li>
+          <li>মানসিক চাপ সামলে ভর্তি পরীক্ষা দেওয়া</li>
+        </ul>
+      </div>
+      <div class="example-box">
+        <div class="ex-label">💡 মূল শিক্ষা</div>
+        <p>ভর্তি পরীক্ষা একটা খেলা — নিয়মগুলো জানলে জেতা সহজ হয়ে যায়।</p>
+      </div>
+      <div class="free-box">
+        <div class="free-label">🆓 ফ্রি রিসোর্স</div>
+        <ul>
+          <li>10 Minute School — ফ্রি ভর্তি প্রস্তুতি কন্টেন্ট</li>
+          <li>Udvash Online — কিছু ফ্রি কন্টেন্ট আছে</li>
+          <li>Facebook গ্রুপ: "University Admission Bangladesh"</li>
+          <li>প্রিভিয়াস ইয়ারের প্রশ্ন — সার্চ করলেই PDF পাবে</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- D9 -->
+    <div class="card rose">
+      <div class="card-icon icon-rose">🧠</div>
+      <div class="card-num">DISCUSSION · ০৯</div>
+      <h3>ফোকাস ঠিক করার আলোচনা</h3>
+      <div class="english-title">Focus Fixing Discussion</div>
+      <div class="card-body">
+        <ul class="learn-list">
+          <li>ছাত্রছাত্রীরা মনোযোগ হারানো নিয়ে যে প্রশ্ন করেছিল</li>
+          <li>বিভিন্ন ধরনের Distraction-এর সমাধান</li>
+          <li>পড়ার পরিবেশ কীভাবে সাজাবে?</li>
+          <li>একাকী পড়া বনাম গ্রুপ পড়া — কোনটা কখন ভালো?</li>
+        </ul>
+      </div>
+      <div class="free-box">
+        <div class="free-label">🆓 ফ্রি রিসোর্স</div>
+        <ul>
+          <li>Noisli.com — পড়ার জন্য Background Sound (ফ্রি)</li>
+          <li>YouTube: "Study With Me" ভিডিও দেখে পড়ো</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- D10 -->
+    <div class="card teal">
+      <div class="card-icon icon-teal">🔄</div>
+      <div class="card-num">DISCUSSION · ১০</div>
+      <h3>ভিডিও রিভিউর রিভিউ</h3>
+      <div class="english-title">Review of Video Review</div>
+      <div class="card-body">
+        <ul class="learn-list">
+          <li>আগের সব সেশনের সংক্ষিপ্ত পুনরালোচনা</li>
+          <li>সবচেয়ে গুরুত্বপূর্ণ পয়েন্টগুলো আবার মনে করিয়ে দেওয়া</li>
+          <li>শিক্ষার্থীদের অগ্রগতি পর্যালোচনা</li>
+          <li>যা শেখা হয়েছে তা বাস্তবে কাজে লাগানো নিয়ে আলোচনা</li>
+        </ul>
+      </div>
+      <div class="example-box">
+        <div class="ex-label">💡 মূল শিক্ষা</div>
+        <p>জ্ঞান পড়লেই হয় না — বারবার রিভিউ না করলে ভুলে যাও। এই সেশনটা সেই কাজটাই করে।</p>
+      </div>
+      <div class="free-box">
+        <div class="free-label">🆓 ফ্রি রিসোর্স</div>
+        <ul>
+          <li>তোমার নোটগুলো সপ্তাহে একবার পুরো পড়ো</li>
+          <li>Flashcard তৈরি করো গুরুত্বপূর্ণ বিষয় নিয়ে</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- D11 - Special Full Width -->
+  <div class="wide-card gold-accent" style="background: linear-gradient(135deg, rgba(245,200,66,0.08) 0%, rgba(232,160,32,0.04) 100%); border-color: rgba(245,200,66,0.3);">
+    <div class="wide-card-header">
+      <div class="wide-card-icon icon-gold" style="background: rgba(245,200,66,0.2); font-size: 28px;">🗺️</div>
+      <div class="wide-card-title">
+        <h3 style="color: var(--gold);">৭ মাসে HSC সিলেবাস শেষ করার রোডম্যাপ</h3>
+        <div class="etitle">The Ultimate HSC 7-Month Roadmap — এটাই কোর্সের সবচেয়ে মূল্যবান সেশন!</div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="col-block">
+        <h4>📚 কী শিখবে?</h4>
+        <ul class="learn-list">
+          <li>৭ মাসকে কীভাবে ভাগ করবে — মাসওয়ারি পরিকল্পনা</li>
+          <li>কোন বিষয় কখন পড়বে — সিলেবাসের গুরুত্ব অনুযায়ী</li>
+          <li>প্রতি মাসে কতটুকু শেষ করতে হবে — মাইলস্টোন ঠিক করা</li>
+          <li>মক টেস্ট ও মডেল টেস্টের সময়সূচী</li>
+          <li>শেষ ২ মাসে রিভিশনের কৌশল</li>
+          <li>পরীক্ষার আগের দিন কী করবে</li>
+        </ul>
+      </div>
+      <div class="col-block">
+        <h4>📅 ৭ মাসের সাধারণ রোডম্যাপ</h4>
+        <ul class="learn-list">
+          <li><strong style="color:var(--gold)">মাস ১-২:</strong> সব বিষয়ের মূল ধারণা (Concept) পড়ো</li>
+          <li><strong style="color:var(--gold)">মাস ৩-৪:</strong> প্রতিটা বিষয়ের কঠিন অধ্যায়গুলো শেষ করো</li>
+          <li><strong style="color:var(--gold)">মাস ৫:</strong> প্রিভিয়াস ইয়ার প্রশ্ন সমাধান শুরু করো</li>
+          <li><strong style="color:var(--gold)">মাস ৬:</strong> মক পরীক্ষা দাও এবং দুর্বলতা খোঁজো</li>
+          <li><strong style="color:var(--gold)">মাস ৭:</strong> পুরো সিলেবাস রিভিশন + মানসিক প্রস্তুতি</li>
+        </ul>
+      </div>
+    </div>
+    <div class="example-box">
+      <div class="ex-label">🇧🇩 রাকিবুলের জন্য বিশেষ পরামর্শ</div>
+      <p>অন্তর, এই রোডম্যাপটা ফলো করলে তুমি ৭ মাসে পুরো HSC সিলেবাস শেষ করতে পারবে — শুধু চাই ধারাবাহিকতা। প্রতিদিন ৪-৫ ঘণ্টা পড়া, সপ্তাহে ১টা মক টেস্ট, আর মাস শেষে পুরো রিভিশন। এটুকু করলেই তুমি যাদের কোর্সে টাকা দিয়ে ভর্তি হয়েছে তাদের চেয়ে এগিয়ে থাকবে!</p>
+    </div>
+    <div class="mega-free" style="margin-top: 16px;">
+      <h3 style="font-size:18px;">🆓 HSC ফ্রি প্রস্তুতি — সম্পূর্ণ রিসোর্স লিস্ট</h3>
+      <div class="free-grid">
+        <div class="free-item">
+          <h4>📺 ফ্রি ভিডিও</h4>
+          <ul>
+            <li>10 Minute School YouTube</li>
+            <li>Shikho App (ফ্রি কন্টেন্ট)</li>
+            <li>Udvash YouTube Channel</li>
+            <li>Anupam Sir YouTube</li>
+          </ul>
+        </div>
+        <div class="free-item">
+          <h4>📚 ফ্রি উপকরণ</h4>
+          <ul>
+            <li>NCTB বোর্ড বই PDF (ফ্রি)</li>
+            <li>প্রিভিয়াস বোর্ড প্রশ্ন PDF</li>
+            <li>Srijonshil.com</li>
+            <li>Bijoybd.com</li>
+          </ul>
+        </div>
+        <div class="free-item">
+          <h4>📱 ফ্রি অ্যাপ</h4>
+          <ul>
+            <li>Anki (Spaced Repetition)</li>
+            <li>Khan Academy (ইংরেজি)</li>
+            <li>Quizlet (ফ্লাশকার্ড)</li>
+            <li>Google Calendar (প্ল্যানিং)</li>
+          </ul>
+        </div>
+        <div class="free-item">
+          <h4>💪 ফ্রি অনুশীলন</h4>
+          <ul>
+            <li>রোজ ১টা মডেল প্রশ্ন সমাধান</li>
+            <li>সপ্তাহে ১টা মক টেস্ট দাও</li>
+            <li>ভুলগুলো নোট করো</li>
+            <li>পরের দিন ভুলগুলো আবার পড়ো</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MIND MAP ============ -->
+<section class="mindmap-section" id="mindmap">
+  <div style="max-width:1100px; margin:0 auto; padding: 0 20px;">
+    <div class="section-label" style="text-align:center;">ভিজ্যুয়াল লার্নিং ওয়েব</div>
+    <h2 class="section-title" style="text-align:center;">মাইন্ড ম্যাপ — <span>জ্ঞানের মাকড়সার জাল</span></h2>
+    <p class="section-desc" style="text-align:center; margin: 0 auto 50px;">এই কোর্সের পুরো জ্ঞানকে একটা ছবিতে দেখো — কেন্দ্র থেকে শাখা বিস্তার</p>
+  </div>
+
+  <div class="mindmap-wrap">
+    <!-- Center -->
+    <div class="mind-center">
+      <div class="mc-icon">⏳</div>
+      <div class="mc-text">টাইম চেম্বার<br>জীবন পরিবর্তন</div>
+    </div>
+
+    <!-- First Layer Branches -->
+    <div class="branches">
+      <div class="branch b1">
+        <div class="branch-icon">🎯</div>
+        <div class="branch-title">লক্ষ্য ও ক্যারিয়ার</div>
+        <ul class="branch-subs">
+          <li>Purpose খোঁজা</li>
+          <li>Passion চেনা</li>
+          <li>Career Planning</li>
+          <li>দীর্ঘমেয়াদী ভাবনা</li>
+        </ul>
+      </div>
+      <div class="branch b2">
+        <div class="branch-icon">⚖️</div>
+        <div class="branch-title">জীবন ব্যবস্থাপনা</div>
+        <ul class="branch-subs">
+          <li>Priority নির্ধারণ</li>
+          <li>রুটিন তৈরি</li>
+          <li>Energy Management</li>
+          <li>Daily Planning</li>
+        </ul>
+      </div>
+      <div class="branch b3">
+        <div class="branch-icon">🔬</div>
+        <div class="branch-title">মনোযোগ ও ফোকাস</div>
+        <ul class="branch-subs">
+          <li>Deep Work</li>
+          <li>Pomodoro Technique</li>
+          <li>Distraction দূর করা</li>
+          <li>পড়ার পরিবেশ</li>
+        </ul>
+      </div>
+      <div class="branch b4">
+        <div class="branch-icon">⚒️</div>
+        <div class="branch-title">মানসিক শক্তি</div>
+        <ul class="branch-subs">
+          <li>Iron Mind তৈরি</li>
+          <li>Resilience</li>
+          <li>Self-Talk</li>
+          <li>কঠিনে টিকে থাকা</li>
+        </ul>
+      </div>
+      <div class="branch b5">
+        <div class="branch-icon">📖</div>
+        <div class="branch-title">একাডেমিক সাফল্য</div>
+        <ul class="branch-subs">
+          <li>পড়ার বিজ্ঞান</li>
+          <li>নোট তৈরি</li>
+          <li>ভর্তি প্রস্তুতি</li>
+          <li>HSC রোডম্যাপ</li>
+        </ul>
+      </div>
+      <div class="branch b6">
+        <div class="branch-icon">🏆</div>
+        <div class="branch-title">সফলতার অভ্যাস</div>
+        <ul class="branch-subs">
+          <li>Top 1% এর রুটিন</li>
+          <li>Compound Effect</li>
+          <li>Discipline</li>
+          <li>আত্মবিশ্বাস</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Mind Map Description -->
+    <div class="mindmap-desc">
+      <h3>🕸️ ভিজ্যুয়াল ওয়েব কীভাবে আঁকবে — বিস্তারিত নির্দেশনা</h3>
+      <p><strong>কেন্দ্রে (Center) কী থাকবে?</strong><br>
+      একটা বড় সোনালি বৃত্ত (Circle) আঁকো। মাঝখানে লেখো — <strong>"টাইম চেম্বার — জীবন পরিবর্তনের যাত্রা"</strong> এবং একটা ⏳ ইমোজি দাও। এটাই তোমার কোর্সের প্রাণকেন্দ্র।</p>
+
+      <p><strong>প্রথম স্তর (First Layer) — ৬টি বড় শাখা:</strong><br>
+      কেন্দ্র থেকে ৬ দিকে ৬টি রঙিন বৃত্ত বা বাক্স আঁকো — (১) সোনালি: লক্ষ্য ও ক্যারিয়ার, (২) সবুজ: জীবন ব্যবস্থাপনা, (৩) নীল: মনোযোগ ও ফোকাস, (৪) বেগুনি: মানসিক শক্তি, (৫) কমলা: একাডেমিক সাফল্য, (৬) লাল: সফলতার অভ্যাস। প্রতিটা বৃত্তকে কেন্দ্রের সাথে একটা মোটা রেখা দিয়ে যুক্ত করো।</p>
+
+      <p><strong>দ্বিতীয় স্তর (Second Layer) — ছোট ছোট পাতা:</strong><br>
+      প্রতিটা বড় বৃত্ত থেকে আরো ৪-৫টা ছোট বৃত্ত বা ডিম্বাকৃতি ছেড়ে দাও। এগুলোতে লেখো সেই বড় শাখার সাব-টপিকগুলো। যেমন — "মনোযোগ ও ফোকাস" বৃত্ত থেকে বের হবে — Deep Work, Pomodoro, Distraction দূর করা, নোটিফিকেশন বন্ধ। এই ছোট বৃত্তগুলোকে মাঝারি রেখা দিয়ে বড় বৃত্তের সাথে যুক্ত করো।</p>
+
+      <p><strong>রঙের নিয়ম:</strong> প্রতিটা শাখার জন্য একটা আলাদা রঙ ব্যবহার করো। বড় শাখার সাথে মিলিয়ে ছোট শাখাও একই রঙের হালকা শেড ব্যবহার করো — এতে চোখে সুন্দর লাগে এবং মনেও থাকে বেশি।</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACTION PLAN ============ -->
+<section class="action-section" id="plan">
+  <div class="section-label">রাকিবুলের ব্যক্তিগত প্ল্যান</div>
+  <h2 class="section-title">১২ সপ্তাহের <span>অ্যাকশন প্ল্যান</span></h2>
+  <p class="section-desc">এই গাইড পড়ে শুধু জ্ঞান নিলে হবে না — কাজে লাগাতে হবে। এই ১২ সপ্তাহের প্ল্যানটা ফলো করো।</p>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot">১</div>
+      <div class="tl-content">
+        <div class="tl-week">সপ্তাহ ১-২ · ভিত্তি তৈরি</div>
+        <h4>🎯 লক্ষ্য ও উদ্দেশ্য খোঁজা</h4>
+        <p>একটা কাগজে তোমার ৫ বছরের স্বপ্ন লিখো। তারপর এই বছর কী করলে সেই স্বপ্নের দিকে এগোবে সেটা লিখো। "Career and Purpose" টপিকটার সব কাজ করো। Notion-এ একটা Goal Journal বানাও।</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">২</div>
+      <div class="tl-content">
+        <div class="tl-week">সপ্তাহ ৩-৪ · রুটিন তৈরি</div>
+        <h4>⚖️ জীবন ব্যবস্থাপনার রুটিন চালু করো</h4>
+        <p>Google Calendar-এ পুরো সপ্তাহের রুটিন বানাও। Eisenhower Matrix ব্যবহার শুরু করো। প্রতি রাতে পরের দিনের ৩টা MIT (Most Important Task) লিখো।</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">৩</div>
+      <div class="tl-content">
+        <div class="tl-week">সপ্তাহ ৫-৬ · মনোযোগ ঠিক করা</div>
+        <h4>🔬 Pomodoro দিয়ে পড়া শুরু করো</h4>
+        <p>Pomofocus.io ব্যবহার শুরু করো। পড়ার সময় ফোন অন্য ঘরে রাখো। Forest App ইনস্টল করো। প্রতিদিন কতক্ষণ ফোন দেখছ সেটা ট্র্যাক করো এবং ১০% কমাও।</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">৪</div>
+      <div class="tl-content">
+        <div class="tl-week">সপ্তাহ ৭-৮ · মানসিক শক্তি</div>
+        <h4>⚒️ Iron Mind অনুশীলন শুরু করো</h4>
+        <p>রোজ সকালে ৫ মিনিট Affirmation বলো। একটা কঠিন কাজ যা এড়িয়ে চলতে — সেটা এই সপ্তাহে করো। Stoicism সম্পর্কে YouTube ভিডিও দেখো।</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">৫</div>
+      <div class="tl-content">
+        <div class="tl-week">সপ্তাহ ৯-১০ · একাডেমিক প্রস্তুতি</div>
+        <h4>📖 Spaced Repetition পদ্ধতিতে পড়া</h4>
+        <p>Anki অ্যাপে গুরুত্বপূর্ণ বিষয়ের ফ্লাশকার্ড বানাও। HSC ৭ মাসের রোডম্যাপ অনুযায়ী প্রতি মাসের লক্ষ্য ঠিক করো। প্রিভিয়াস ইয়ার প্রশ্ন সমাধান শুরু করো।</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">৬</div>
+      <div class="tl-content">
+        <div class="tl-week">সপ্তাহ ১১-১২ · সফলতার অভ্যাস</div>
+        <h4>🏆 Top 1% এর অভ্যাসগুলো চালু করো</h4>
+        <p>সব অভ্যাস একসাথে চালু রাখো — রুটিন, Pomodoro, Journal, রিভিশন। প্রতি সপ্তাহে নিজের অগ্রগতি মূল্যায়ন করো। এই ১২ সপ্তাহের আগে ও পরের তুলনা করো।</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEGA FREE RESOURCES ============ -->
+<section class="section" id="free" style="padding-top:20px;">
+  <div class="quote-banner">
+    <div class="q-text">"টাকা না থাকলে অজুহাত দেখানো যায়।<br>কিন্তু ইন্টারনেট থাকলে কোনো অজুহাত নেই।"</div>
+    <div class="q-by">— অন্তর, মনে রাখো — ফ্রিতেই সেরা শিক্ষা পাওয়া সম্ভব 💪</div>
+  </div>
+
+  <div class="mega-free">
+    <h3>🆓 সম্পূর্ণ ফ্রি রিসোর্স — কোর্সের বিকল্প হিসেবে</h3>
+    <div class="free-grid">
+      <div class="free-item">
+        <h4>🎓 ফ্রি শিক্ষা প্ল্যাটফর্ম</h4>
+        <ul>
+          <li>10 Minute School (YouTube)</li>
+          <li>Khan Academy (বাংলা ও ইংরেজি)</li>
+          <li>Coursera Audit (ফ্রি মোড)</li>
+          <li>edX Free Courses</li>
+          <li>YouTube University (সেরা ফ্রি)</li>
+        </ul>
+      </div>
+      <div class="free-item">
+        <h4>🧠 মানসিক উন্নয়ন</h4>
+        <ul>
+          <li>Andrew Huberman Podcast (YouTube)</li>
+          <li>Jordan Peterson Lectures (YouTube)</li>
+          <li>TED Talks (ted.com - ফ্রি)</li>
+          <li>জাফর ইকবাল স্যারের বক্তব্য (YouTube)</li>
+          <li>Stoicism Bangla Channel</li>
+        </ul>
+      </div>
+      <div class="free-item">
+        <h4>📱 ফ্রি প্রোডাক্টিভিটি অ্যাপ</h4>
+        <ul>
+          <li>Notion (ফ্রি প্ল্যান)</li>
+          <li>Google Calendar</li>
+          <li>Todoist (ফ্রি)</li>
+          <li>Anki (Spaced Repetition)</li>
+          <li>Forest App</li>
+          <li>Pomofocus.io</li>
+        </ul>
+      </div>
+      <div class="free-item">
+        <h4>📚 ফ্রি বই সারসংক্ষেপ</h4>
+        <ul>
+          <li>"Atomic Habits" — YouTube Bangla</li>
+          <li>"Deep Work" — YouTube Bangla</li>
+          <li>"Compound Effect" — YouTube</li>
+          <li>"Think and Grow Rich" — Bangla</li>
+          <li>Blinkist ফ্রি ট্রায়াল</li>
+        </ul>
+      </div>
+      <div class="free-item">
+        <h4>🔥 ফ্রি চ্যালেঞ্জ (শুরু করো আজই!)</h4>
+        <ul>
+          <li>৩০ দিন — রোজ ৩০ মিনিট পড়ো</li>
+          <li>৭ দিন — সোশ্যাল মিডিয়া ডিটক্স</li>
+          <li>২১ দিন — সকাল ৬টায় উঠো</li>
+          <li>৩০ দিন — রোজ ১ পাতা জার্নাল</li>
+          <li>৯০ দিন — Pomodoro দিয়ে পড়া</li>
+        </ul>
+      </div>
+      <div class="free-item">
+        <h4>🤝 ফ্রি কমিউনিটি</h4>
+        <ul>
+          <li>Facebook: Study Group Bangladesh</li>
+          <li>Discord: Bangladesh Study Server</li>
+          <li>Reddit: r/GetStudying</li>
+          <li>Telegram: HSC Preparation Groups</li>
+          <li>নিজেই একটা Study Group বানাও!</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="f-name">রাকিবুল হাসান অন্তর</div>
+  <div class="f-sub">তোমার ব্যক্তিগত টাইম চেম্বার সেলফ-স্টাডি গাইড · সম্পূর্ণ বাংলায়</div>
+  <div style="margin-top: 16px; font-size: 12px; color: var(--muted);">
+    💡 এই গাইডটা বারবার পড়ো। জ্ঞান একবার পড়লে হয় না — অনুশীলন করতে হয়।
+  </div>
+  <div style="margin-top: 24px;">
+    <div style="display:inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+      <span class="tag">🎯 লক্ষ্য ঠিক করো</span>
+      <span class="tag teal">🔬 ফোকাস ধরো</span>
+      <span class="tag rose">⚒️ মন শক্ত করো</span>
+      <span class="tag">🏆 সফল হও</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Smooth scroll for nav links
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Intersection Observer for card animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.card, .wide-card, .tl-content').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>

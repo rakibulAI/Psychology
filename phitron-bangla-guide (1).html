@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phitron কোর্স — বাংলা স্ব-শিক্ষা গাইড</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Tiro+Bangla:ital@0;1&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f1a;
+    --bg2: #141728;
+    --bg3: #1c2038;
+    --card: #1e2340;
+    --card2: #252b4a;
+    --accent: #f5a623;
+    --accent2: #e8394a;
+    --green: #2ecc71;
+    --blue: #4fa3e0;
+    --purple: #9b59b6;
+    --teal: #1abc9c;
+    --pink: #e91e8c;
+    --text: #e8ecf4;
+    --text2: #a8b2cc;
+    --border: rgba(255,255,255,0.08);
+    --glow: rgba(245,166,35,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Hind Siliguri', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    font-size: 16px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, #0d0f1a 0%, #1a0e2e 50%, #0a1628 100%);
+    padding: 70px 20px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(245,166,35,0.12) 0%, transparent 70%);
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(245,166,35,0.15);
+    border: 1px solid rgba(245,166,35,0.4);
+    color: var(--accent);
+    padding: 6px 18px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Tiro Bangla', serif;
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 700;
+    line-height: 1.3;
+    color: #fff;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero p {
+    font-size: clamp(15px, 2vw, 18px);
+    color: var(--text2);
+    max-width: 700px;
+    margin: 0 auto 30px;
+    position: relative;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 24px;
+    text-align: center;
+  }
+  .stat-num { font-size: 22px; font-weight: 700; color: var(--accent); }
+  .stat-label { font-size: 12px; color: var(--text2); }
+
+  /* ── NAV ── */
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(13,15,26,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 20px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .sticky-nav::-webkit-scrollbar { display: none; }
+  .nav-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    padding: 7px 16px;
+    border-radius: 8px;
+    font-family: 'Hind Siliguri', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .nav-btn:hover, .nav-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #000;
+    font-weight: 600;
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 960px; margin: 0 auto; padding: 0 16px; }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    padding: 60px 0 30px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+  .sem-tag {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+  }
+  .sem1 { background: rgba(79,163,224,0.15); color: var(--blue); border: 1px solid rgba(79,163,224,0.3); }
+  .sem2 { background: rgba(46,204,113,0.15); color: var(--green); border: 1px solid rgba(46,204,113,0.3); }
+  .sem3 { background: rgba(155,89,182,0.15); color: var(--purple); border: 1px solid rgba(155,89,182,0.3); }
+  .path-tag { background: rgba(232,57,74,0.15); color: var(--accent2); border: 1px solid rgba(232,57,74,0.3); }
+
+  .section-header h2 {
+    font-family: 'Tiro Bangla', serif;
+    font-size: clamp(22px, 3.5vw, 36px);
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .section-header p { color: var(--text2); font-size: 15px; max-width: 700px; }
+
+  /* ── TOPIC CARD ── */
+  .topic-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 24px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .topic-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .tc-blue::before { background: var(--blue); }
+  .tc-green::before { background: var(--green); }
+  .tc-orange::before { background: var(--accent); }
+  .tc-purple::before { background: var(--purple); }
+  .tc-teal::before { background: var(--teal); }
+  .tc-pink::before { background: var(--pink); }
+  .tc-red::before { background: var(--accent2); }
+
+  .topic-card:hover {
+    border-color: rgba(255,255,255,0.15);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+
+  .topic-title {
+    font-size: 19px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .topic-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .topic-subtitle {
+    font-size: 13px;
+    color: var(--text2);
+    margin-bottom: 18px;
+    padding-left: 46px;
+    font-style: italic;
+  }
+
+  .learn-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  @media(max-width:580px){ .learn-grid { grid-template-columns: 1fr; } }
+
+  .learn-box {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .learn-box h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .learn-box ul { list-style: none; }
+  .learn-box ul li {
+    font-size: 14px;
+    color: var(--text2);
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .learn-box ul li:last-child { border-bottom: none; }
+  .learn-box ul li::before {
+    content: '▸';
+    color: var(--green);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .explanation {
+    background: linear-gradient(135deg, rgba(30,35,64,0.6), rgba(20,23,40,0.6));
+    border: 1px solid rgba(79,163,224,0.1);
+    border-radius: 10px;
+    padding: 16px 18px;
+    font-size: 14.5px;
+    color: var(--text2);
+    line-height: 1.9;
+    margin-bottom: 16px;
+  }
+  .explanation strong { color: var(--text); }
+
+  /* ── FREE BOX ── */
+  .free-box {
+    background: linear-gradient(135deg, rgba(46,204,113,0.08), rgba(26,188,156,0.05));
+    border: 1px solid rgba(46,204,113,0.25);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-top: 16px;
+  }
+  .free-box-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 12px;
+  }
+  .free-box-header h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--green);
+  }
+  .free-badge {
+    background: var(--green);
+    color: #000;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 999px;
+    letter-spacing: 1px;
+  }
+  .free-box ul { list-style: none; }
+  .free-box ul li {
+    font-size: 13.5px;
+    color: #a8d8bc;
+    padding: 5px 0;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .free-box ul li::before {
+    content: '🔗';
+    flex-shrink: 0;
+  }
+
+  /* ── STEPS ── */
+  .steps { margin: 12px 0; }
+  .step {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    width: 28px; height: 28px;
+    background: var(--accent);
+    color: #000;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800;
+    flex-shrink: 0;
+  }
+  .step-text { font-size: 14px; color: var(--text2); line-height: 1.7; }
+  .step-text strong { color: var(--text); }
+
+  /* ── MINDMAP ── */
+  #mindmap { padding: 60px 0; }
+  .mindmap-container {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px 30px;
+    overflow-x: auto;
+  }
+  .mindmap-title {
+    font-family: 'Tiro Bangla', serif;
+    font-size: 26px;
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .mm-center {
+    background: linear-gradient(135deg, var(--accent), #e8394a);
+    border-radius: 50%;
+    width: 160px; height: 160px;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #000;
+    margin: 0 auto 50px;
+    box-shadow: 0 0 50px rgba(245,166,35,0.4);
+    line-height: 1.4;
+  }
+
+  .mm-branches {
+    display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;
+  }
+  .mm-branch {
+    background: var(--bg3);
+    border-radius: 14px;
+    padding: 20px;
+    width: 260px;
+    border-top: 3px solid;
+  }
+  .mm-branch-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .mm-sub {
+    font-size: 12.5px;
+    color: var(--text2);
+    padding: 4px 0;
+    border-bottom: 1px dashed var(--border);
+    display: flex; gap: 6px;
+  }
+  .mm-sub:last-child { border-bottom: none; }
+  .mm-sub::before { content: '↳'; opacity: 0.5; flex-shrink: 0; }
+
+  /* ── ROADMAP ── */
+  .roadmap {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 30px;
+    margin: 30px 0;
+  }
+  .roadmap h3 {
+    font-size: 18px;
+    color: var(--accent);
+    margin-bottom: 24px;
+    font-family: 'Tiro Bangla', serif;
+  }
+  .road-step {
+    display: flex; gap: 16px; align-items: flex-start;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .road-step::before {
+    content: '';
+    position: absolute;
+    left: 19px; top: 40px;
+    width: 2px; height: calc(100% + 4px);
+    background: var(--border);
+  }
+  .road-step:last-child::before { display: none; }
+  .road-dot {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    position: relative; z-index: 1;
+  }
+  .road-content h4 { font-size: 15px; color: #fff; margin-bottom: 4px; }
+  .road-content p { font-size: 13px; color: var(--text2); }
+
+  /* ── ACCORDION ── */
+  .accordion { margin: 16px 0; }
+  .acc-header {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 14px; font-weight: 600; color: var(--text);
+    transition: background 0.2s;
+  }
+  .acc-header:hover { background: var(--card2); }
+  .acc-body {
+    display: none;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 16px;
+    font-size: 13.5px;
+    color: var(--text2);
+  }
+  .acc-body.open { display: block; }
+  .acc-arrow { transition: transform 0.3s; font-size: 12px; }
+  .acc-arrow.open { transform: rotate(180deg); }
+
+  /* ── SUMMARY BOX ── */
+  .summary-box {
+    background: linear-gradient(135deg, rgba(245,166,35,0.08), rgba(232,57,74,0.05));
+    border: 1px solid rgba(245,166,35,0.2);
+    border-radius: 14px;
+    padding: 28px;
+    margin: 40px 0;
+    font-size: 15px;
+    line-height: 2;
+    color: var(--text2);
+  }
+  .summary-box h3 { font-family:'Tiro Bangla',serif; color: var(--accent); margin-bottom: 12px; font-size: 20px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--text2);
+    font-size: 14px;
+  }
+  footer strong { color: var(--accent); }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 40px 0;
+  }
+
+  /* ── TAGS ── */
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    margin: 2px;
+  }
+  .tag-c { background: rgba(79,163,224,0.15); color: var(--blue); }
+  .tag-cpp { background: rgba(155,89,182,0.15); color: var(--purple); }
+  .tag-py { background: rgba(46,204,113,0.15); color: var(--green); }
+  .tag-db { background: rgba(245,166,35,0.15); color: var(--accent); }
+  .tag-web { background: rgba(232,57,74,0.15); color: var(--accent2); }
+
+  /* ── SCROLL TO TOP ── */
+  #scrollTop {
+    position: fixed; bottom: 24px; right: 20px;
+    background: var(--accent); color: #000;
+    border: none; border-radius: 50%;
+    width: 44px; height: 44px;
+    font-size: 18px; cursor: pointer;
+    display: none; z-index: 200;
+    box-shadow: 0 4px 16px rgba(245,166,35,0.4);
+  }
+  #scrollTop.show { display: flex; align-items:center; justify-content:center; }
+
+  /* ── PROGRESS ── */
+  .progress-bar {
+    position: fixed; top: 0; left: 0; height: 3px;
+    background: var(--accent); width: 0%;
+    z-index: 999; transition: width 0.1s;
+  }
+
+  code {
+    font-family: 'Fira Code', monospace;
+    background: var(--bg3);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #f5a623;
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">📚 সম্পূর্ণ বাংলা স্ব-শিক্ষা গাইড</div>
+  <h1>Phitron DSA &amp; Software<br><span>Development কোর্স</span></h1>
+  <p>৫০,০০০ টাকার কোর্স না কিনেও যেভাবে সব শিখবে — সম্পূর্ণ ফ্রিতে, বাংলায়, ধাপে ধাপে।</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">৩টি</div><div class="stat-label">সেমিস্টার</div></div>
+    <div class="stat"><div class="stat-num">৬+</div><div class="stat-label">বড় মডিউল</div></div>
+    <div class="stat"><div class="stat-num">৫০+</div><div class="stat-label">টপিক</div></div>
+    <div class="stat"><div class="stat-num">১০০%</div><div class="stat-label">ফ্রি রিসোর্স</div></div>
+  </div>
+</div>
+
+<!-- STICKY NAV -->
+<nav class="sticky-nav">
+  <button class="nav-btn active" onclick="scrollToId('summary')">📋 সারসংক্ষেপ</button>
+  <button class="nav-btn" onclick="scrollToId('sem1')">🔵 সেমিস্টার ১</button>
+  <button class="nav-btn" onclick="scrollToId('sem2')">🟢 সেমিস্টার ২</button>
+  <button class="nav-btn" onclick="scrollToId('sem3')">🟣 সেমিস্টার ৩</button>
+  <button class="nav-btn" onclick="scrollToId('mindmap')">🗺️ মাইন্ড ম্যাপ</button>
+  <button class="nav-btn" onclick="scrollToId('roadmap')">🛣️ রোডম্যাপ</button>
+</nav>
+
+<div class="container">
+
+  <!-- SUMMARY -->
+  <div id="summary" class="summary-box" style="margin-top:50px;">
+    <h3>🎯 এই কোর্সটা কী শেখাবে? (সহজ বাংলায়)</h3>
+    <p>ভাই/আপু, এই Phitron কোর্সটা মূলত তোমাকে <strong>একজন পূর্ণ Software Developer এবং Competitive Programmer</strong> বানাতে চায়। একদম শুরু থেকে — মানে C ভাষা দিয়ে "Hello World" লেখা থেকে শুরু করে — শেষে তুমি পুরোপুরি Backend API বানাতে পারবে, Database সামলাতে পারবে, আর CodeForces বা CodeChef-এ প্রতিযোগিতা করতে পারবে। পুরো কোর্সটা ৩টি সেমিস্টারে ভাগ করা — সেমিস্টার ১-এ প্রোগ্রামিংয়ের ভিত্তি, সেমিস্টার ২-তে Data Structure ও Algorithm, আর সেমিস্টার ৩-তে তুমি দুটো রাস্তার একটা বেছে নিতে পারো: হয় Competitive Programming (প্রতিযোগিতামূলক), নয়তো Software Development (চাকরি বা ফ্রিল্যান্সিং)।</p>
+    <br>
+    <p>মনে রেখো — টাকা না থাকলেও হাল ছেড়ো না। YouTube-এ Bangla ও English-এ সব টপিকের ভিডিও আছে, আর Codeforces, LeetCode, HackerRank-এ হাজার হাজার ফ্রি প্রশ্ন আছে। শুধু দরকার নিয়মিত অনুশীলন আর ধৈর্য। তুমি পারবে! 💪</p>
+  </div>
+
+  <!-- =========================================
+       SEMESTER 1
+  ========================================= -->
+  <div id="sem1">
+    <div class="section-header">
+      <span class="sem-tag sem1">সেমিস্টার ১</span>
+      <h2>প্রোগ্রামিংয়ের ভিত্তি — C Language &amp; C++ পরিচিতি</h2>
+      <p>একদম নতুন শিক্ষার্থীদের জন্য। কোনো আগের অভিজ্ঞতা না থাকলেও চলবে।</p>
+    </div>
+
+    <!-- Topic 1: C Programming -->
+    <div class="topic-card tc-blue">
+      <div class="topic-title">
+        <div class="topic-icon" style="background:rgba(79,163,224,0.2);">💻</div>
+        মডিউল ১ — C ভাষায় প্রোগ্রামিং পরিচিতি
+      </div>
+      <div class="topic-subtitle">Introduction to Programming in C Language <span class="tag tag-c">C Language</span></div>
+
+      <div class="explanation">
+        <strong>সহজ কথায় বলতে গেলে:</strong> C ভাষা হলো প্রোগ্রামিংয়ের দাদা-ভাই। একটা বাড়ি বানাতে যেমন ইট-বালু-সিমেন্ট দরকার, তেমনি যেকোনো প্রোগ্রামিং শেখার আগে C শিখতে হয়। এটা শিখলে পরে Python, Java, JavaScript — সব সহজ লাগবে।
+      </div>
+
+      <div class="learn-grid">
+        <div class="learn-box">
+          <h4>📌 কী কী শিখবে</h4>
+          <ul>
+            <li>প্রোগ্রাম কীভাবে কাজ করে</li>
+            <li>স্ক্রিনে লেখা দেখানো ও ইনপুট নেওয়া</li>
+            <li>চলক (Variable) ও তথ্যের ধরন (Data type)</li>
+            <li>গণনা করার চিহ্ন (Operator)</li>
+            <li>শর্ত অনুযায়ী সিদ্ধান্ত নেওয়া (if-else)</li>
+            <li>বারবার কাজ করা (Loop)</li>
+            <li>তালিকা সংরক্ষণ (Array)</li>
+            <li>শব্দ/বাক্য নিয়ে কাজ (String)</li>
+            <li>ফাংশন ও পয়েন্টার</li>
+            <li>নিজে নিজে ডাকা (Recursion)</li>
+          </ul>
+        </div>
+        <div class="learn-box">
+          <h4>🇧🇩 বাংলাদেশি উদাহরণ</h4>
+          <ul>
+            <li>একটা ক্যালকুলেটর বানাও যা ২টি সংখ্যা যোগ করে</li>
+            <li>BDT থেকে USD কনভার্টার বানাও</li>
+            <li>১ থেকে ১০০ পর্যন্ত জোড় সংখ্যা প্রিন্ট করো</li>
+            <li>ছাত্রদের নামের তালিকা Array-তে রাখো</li>
+            <li>বাংলাদেশের ৬৪ জেলার নাম String-এ সংরক্ষণ করো</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="step"><div class="step-num">১</div><div class="step-text"><strong>প্রথমে VS Code বা Code::Blocks ইনস্টল করো</strong> — কোড লেখার জায়গা। এটা তোমার খাতা-কলম।</div></div>
+        <div class="step"><div class="step-num">২</div><div class="step-text"><strong>"Hello World" প্রোগ্রাম লেখো</strong> — <code>printf("Hello World");</code> এটাই প্রথম ধাপ।</div></div>
+        <div class="step"><div class="step-num">৩</div><div class="step-text"><strong>Variable ও Data type শেখো</strong> — int (পূর্ণ সংখ্যা), float (দশমিক), char (অক্ষর)।</div></div>
+        <div class="step"><div class="step-num">৪</div><div class="step-text"><strong>if-else দিয়ে ছোট সমস্যা সমাধান করো</strong> — যেমন পাস/ফেল নির্ধারণ।</div></div>
+        <div class="step"><div class="step-num">৫</div><div class="step-text"><strong>Loop দিয়ে বারবার কাজ করাও</strong> — নামতা প্রিন্ট করাও।</div></div>
+        <div class="step"><div class="step-num">৬</div><div class="step-text"><strong>Array দিয়ে তালিকা বানাও</strong> — ১০ জন ছাত্রের নম্বর রাখো ও গড় বের করো।</div></div>
+      </div>
+
+      <div class="free-box">
+        <div class="free-box-header">
+          <h4>🆓 ফ্রিতে এটা শেখার উপায়</h4>
+          <span class="free-badge">FREE</span>
+        </div>
+        <ul>
+          <li><strong>YouTube বাংলা:</strong> "Anisul Islam C Programming" — YouTube-এ সার্চ দাও, পুরো সিরিজ ফ্রি আছে</li>
+          <li><strong>YouTube বাংলা:</strong> "Stack Learner C Language" — খুব সুন্দরভাবে বোঝায়</li>
+          <li><strong>ফ্রি প্র্যাকটিস:</strong> HackerRank.com → "C" section-এ যাও, সহজ প্রশ্ন দিয়ে শুরু করো</li>
+          <li><strong>ফ্রি কোড এডিটর:</strong> replit.com — ব্রাউজার থেকেই কোড চালানো যায়, কিছু ইনস্টল করতে হয় না</li>
+          <li><strong>ফ্রি টেক্সটবুক:</strong> cprogramming.com — ইংরেজিতে কিন্তু খুব সহজ ভাষায়</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Topic 2: Problem Solving Part 1 -->
+    <div class="topic-card tc-green">
+      <div class="topic-title">
+        <div class="topic-icon" style="background:rgba(46,204,113,0.2);">🧩</div>
+        মডিউল ২ — সমস্যা সমাধান (প্রথম পর্ব)
+      </div>
+      <div class="topic-subtitle">Problem Solving Part 01 — Online Judge পরিচিতি</div>
+
+      <div class="explanation">
+        <strong>এই পর্বে কী হয়?</strong> C শেখার পর এখন সেটা দিয়ে আসল সমস্যা সমাধান করতে হবে। এটা হলো অনেকটা স্কুলে অঙ্ক শেখার পর পরীক্ষার প্রশ্ন সমাধান করার মতো। Online Judge হলো এমন একটা ওয়েবসাইট যেখানে কোড জমা দিলে সাথে সাথে বলে দেয় সঠিক হয়েছে কিনা।
+      </div>
+
+      <div class="learn-grid">
+        <div class="learn-box">
+          <h4>📌 কী কী অনুশীলন হবে</h4>
+          <ul>
+            <li>গণিত সংক্রান্ত সমস্যা</li>
+            <li>Loop দিয়ে সমস্যা</li>
+            <li>Array দিয়ে সমস্যা</li>
+            <li>String নিয়ে সমস্যা</li>
+            <li>Function ব্যবহার করে সমস্যা</li>
+            <li>Online Judge-এ কোড জমা দেওয়া</li>
+          </ul>
+        </div>
+        <div class="learn-box">
+          <h4>🌐 কোন Online Judge ব্যবহার করবে</h4>
+          <ul>
+            <li>Codeforces.com — বিশ্বসেরা, ফ্রি</li>
+            <li>HackerRank.com — শিক্ষানবিশদের জন্য ভালো</li>
+            <li>LeetCode.com — চাকরির ইন্টারভিউর জন্য</li>
+            <li>CodeChef.com — প্রতিযোগিতার জন্য</li>
+            <li>SPOJ.com — ক্লাসিক সমস্যার ভান্ডার</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="free-box">
+        <div class="free-box-header">
+          <h4>🆓 ফ্রিতে প্র্যাকটিস করার উপায়</h4>
+          <span class="free-badge">FREE</span>
+        </div>
+        <ul>
+          <li><strong>Codeforces.com:</strong> Division 4 ও Division 3-এর A, B প্রশ্ন দিয়ে শুরু করো — একদম সহজ</li>
+          <li><strong>HackerRank C Domain:</strong> "Easy" লেভেলের প্রশ্ন করো প্রতিদিন ২-৩টা</li>
+          <li><strong>YouTube:</strong> "Competitive Programming Bangla" সার্চ দাও — অনেক বাংলা টিউটোরিয়াল আছে</li>
+          <li><strong>নিজে নিজে চ্যালেঞ্জ:</strong> প্রতিদিন ১টা নতুন প্রশ্ন সমাধান করার অভ্যাস বানাও</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Topic 3: C++ for DSA -->
+    <div class="topic-card tc-purple">
+      <div class="topic-title">
+        <div class="topic-icon" style="background:rgba(155,89,182,0.2);">⚡</div>
+        মডিউল ৩ — DSA-র জন্য C++ পরিচিতি
+      </div>
+      <div class="topic-subtitle">Introduction to C++ For DSA <span class="tag tag-cpp">C++</span></div>
+
+      <div class="explanation">
+        <strong>C++ কেন শিখতে হবে?</strong> C শেখার পর C++ হলো তার উন্নত সংস্করণ। Data Structure ও Algorithm (DSA) শেখার জন্য C++ সবচেয়ে দ্রুত ও শক্তিশালী ভাষা। অলিম্পিয়াড বা Codeforces-এ ৯০% প্রোগ্রামার C++ ব্যবহার করে। এটা C-র মতোই কিন্তু আরও বেশি সুবিধার জিনিস আছে।
+      </div>
+
+      <div class="learn-grid">
+        <div class="learn-box">
+          <h4>📌 C++-এ নতুন কী শিখবে</h4>
+          <ul>
+            <li>C++ সিনট্যাক্স — C থেকে পার্থক্য</li>
+            <li>min(), max(), swap() ফাংশন</li>
+            <li>Common Header ফাইল (#include bits/stdc++.h)</li>
+            <li>String Class — আরও সহজে String কাজ</li>
+            <li>Dynamic Memory (new, delete)</li>
+            <li>Class ও Object — OOP-র শুরু</li>
+            <li>Array of Classes ও Objects</li>
+          </ul>
+        </div>
+        <div class="learn-box">
+          <h4>🇧🇩 বাস্তব উদাহরণ</h4>
+          <ul>
+            <li>Student নামের Class বানাও — নাম, রোল, নম্বর রাখবে</li>
+            <li>swap() দিয়ে দুটো সংখ্যা অদলবদল করো</li>
+            <li>string দিয়ে নাম উল্টো করে দেখাও</li>
+            <li>১০ জন ছাত্রের Object Array বানাও</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="free-box">
+        <div class="free-box-header">
+          <h4>🆓 ফ্রিতে C++ শেখার উপায়</h4>
+          <span class="free-badge">FREE</span>
+        </div>
+        <ul>
+          <li><strong>YouTube বাংলা:</strong> "Anisul Islam C++ Tutorial Bangla" — সম্পূর্ণ সিরিজ ফ্রি</li>
+          <li><strong>cplusplus.com:</strong> ফ্রি C++ ডকুমেন্টেশন ও উদাহরণ</li>
+          <li><strong>learncpp.com:</strong> বিশ্বের সেরা ফ্রি C++ টিউটোরিয়াল ওয়েবসাইট</li>
+          <li><strong>Compiler Online:</strong> cpp.sh বা onlinegdb.com — ব্রাউজারেই C++ চালাও</li>
+        </ul>
+      </div>
+    </div>
+  </div><!-- end sem1 -->
+
+  <div class="divider"></div>
+
+  <!-- =========================================
+       SEMESTER 2
+  ========================================= -->
+  <div id="sem2">
+    <div class="section-header">
+      <span class="sem-tag sem2">সেমিস্টার ২</span>
+      <h2>ডেটা স্ট্রাকচার, অ্যালগরিদম ও সমস্যা সমাধান</h2>
+      <p>এই পর্বটা সবচেয়ে গুরুত্বপূর্ণ — এখানেই আসল দক্ষতা তৈরি হয়।</p>
+    </div>
+
+    <!-- Basic Data Structure -->
+    <div class="topic-card tc-teal">
+      <div class="topic-title">
+        <div class="topic-icon" style="background:rgba(26,188,156,0.2);">🏗️</div>
+        মডিউল ৪ — মৌলিক ডেটা স্ট্রাকচার
+      </div>
+      <div class="topic-subtitle">Basic Data Structure <span class="tag tag-cpp">C++</span></div>
+
+      <div class="explanation">
+        <strong>ডেটা স্ট্রাকচার কী?</strong> ভাবো, তোমার কাছে অনেক বই আছে। এখন সেগুলো তুমি কীভাবে সাজাবে? সব এলোমেলো রাখলে খুঁজে পাবে না, কিন্তু বিষয় অনুযায়ী সাজালে সহজে পাবে। Data Structure হলো ঠিক এই সাজানোর পদ্ধতি — কম্পিউটারের ডেটা কীভাবে সংরক্ষণ ও ব্যবহার করবে তার নিয়ম।
+      </div>
+
+      <div class="learn-grid">
+        <div class="learn-box">
+          <h4>📌 কী কী শিখবে</h4>
+          <ul>
+            <li>Time ও Space Complexity — কোড কতটা দ্রুত?</li>
+            <li>Linear Search, Binary Search</li>
+            <li>Selection Sort</li>
+            <li>Two Pointers ও Prefix Sum</li>
+            <li>Singly Linked List</li>
+            <li>Double Linked List</li>
+            <li>Stack (LIFO)</li>
+            <li>Queue (FIFO)</li>
+            <li>Priority Queue</li>
+            <li>Binary Tree, BST, Heap</li>
+            <li>STL (Standard Template Library)</li>
+          </ul>
+        </div>
+        <div class="learn-box">
+          <h4>🇧🇩 সহজ উদাহরণ</h4>
+          <ul>
+            <li><strong>Stack:</strong> থালা বাসনের স্তূপ — উপর থেকেই তোলা যায়</li>
+            <li><strong>Queue:</strong> বিকাশ এজেন্টের লাইন — আগে আসলে আগে সুযোগ</li>
+            <li><strong>Binary Tree:</strong> পরিবারের বংশলতিকার মতো</li>
+            <li><strong>Linked List:</strong> রেলগাড়ির বগির মতো — একটা আরেকটার সাথে যুক্ত</li>
+            <li><strong>Priority Queue:</strong> হাসপাতালে জরুরি রোগী আগে পায়</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          📖 Time Complexity সহজে বোঝো <span class="acc-arrow">▼</span>
+        </div>
+        <div class="acc-body">
+          Time Complexity মানে হলো — তোমার কোড কতটা সময় নেবে কাজ শেষ করতে। ধরো, ১০০০ জন ছাত্রের তালিকায় একজনকে খুঁজতে হবে।<br><br>
+          • <strong>O(n) — Linear Search:</strong> মাথা থেকে শুরু করে একজন একজন করে দেখো। সময় লাগবে বেশি।<br>
+          • <strong>O(log n) — Binary Search:</strong> তালিকা সাজানো থাকলে মাঝখান থেকে শুরু করো। অনেক দ্রুত!<br>
+          • <strong>O(1) — Constant:</strong> সরাসরি জানো কোথায় আছে। সবচেয়ে দ্রুত।<br><br>
+          সহজ নিয়ম: O(1) > O(log n) > O(n) > O(n²) — সংখ্যা যত ছোট, তত ভালো।
+        </div>
+      </div>
+
+      <div class="free-box">
+        <div class="free-box-header">
+          <h4>🆓 ফ্রিতে DSA শেখার উপায়</h4>
+          <span class="free-badge">FREE</span>
+        </div>
+        <ul>
+          <li><strong>YouTube বাংলা:</strong> "Tamim Shahriar DSA" ও "Stack Learner DSA" — বাংলায় দারুণ ব্যাখ্যা</li>
+          <li><strong>YouTube ইংরেজি:</strong> "Abdul Bari Algorithms" — বিশ্বের সেরা DSA কোর্স, ফ্রি</li>
+          <li><strong>Visualizer:</strong> visualgo.net — চোখের সামনে দেখো কীভাবে কাজ করে</li>
+          <li><strong>LeetCode.com:</strong> Easy লেভেলের Array ও String সমস্যা দিয়ে শুরু করো</li>
+          <li><strong>GeeksForGeeks.org:</strong> প্রতিটি Data Structure-এর বিস্তারিত ব্যাখ্যা ও কোড ফ্রিতে পাবে</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Problem Solving Part 2 -->
+    <div class="topic-card tc-orange">
+      <div class="topic-title">
+        <div class="topic-icon" style="background:rgba(245,166,35,0.2);">🎯</div>
+        মডিউল ৫ — সমস্যা সমাধান (দ্বিতীয় পর্ব)
+      </div>
+      <div class="topic-subtitle">Problem Solving Part 02 — DSA দিয়ে সমস্যা সমাধান</div>
+
+      <div class="explanation">
+        এই পর্বে তুমি যা শিখেছো সেটা দিয়ে আসল প্রতিযোগিতামূলক সমস্যা সমাধান করবে। Stack দিয়ে bracket matching করবে, Queue দিয়ে BFS করবে, BST দিয়ে সংখ্যা খুঁজবে। এটা অনেকটা খেলার মতো — প্রথমে নিয়ম শিখেছো, এখন মাঠে নামার সময়!
+      </div>
+
+      <div class="learn-grid">
+        <div class="learn-box">
+          <h4>📌 কী কী অনুশীলন হবে</h4>
+          <ul>
+            <li>Sorting দিয়ে সমস্যা সমাধান</li>
+            <li>Two Pointers ও Prefix Sum প্রয়োগ</li>
+            <li>Linked List সমস্যা</li>
+            <li>Stack ব্যবহার করা</li>
+            <li>Queue ব্যবহার করা</li>
+            <li>Binary Tree সমস্যা</li>
+            <li>BST-তে অনুসন্ধান</li>
+            <li>Map ও Priority Queue</li>
+          </ul>
+        </div>
+        <div class="learn-box">
+          <h4>💡 কৌশল</h4>
+          <ul>
+            <li>প্রথমে সমস্যা ভালো করে পড়ো</li>
+            <li>কোন Data Structure দরকার ভাবো</li>
+            <li>কাগজে আগে লিখে নাও</li>
+            <li>কোড লেখো ও টেস্ট করো</li>
+            <li>Wrong Answer হলে মন খারাপ না করে কারণ বোঝো</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="free-box">
+        <div class="free-box-header">
+          <h4>🆓 ফ্রি প্র্যাকটিস রিসোর্স</h4>
+          <span class="free-badge">FREE</span>
+        </div>
+        <ul>
+          <li><strong>Codeforces:</strong> Educational Codeforces Rounds-এ অংশ নাও — ফ্রি ও নিয়মিত হয়</li>
+          <li><strong>LeetCode 75:</strong> Top 75 সমস্যার তালিকা — চাকরির জন্য পারফেক্ট, ফ্রি</li>
+          <li><strong>CSES Problem Set:</strong> cses.fi — DSA-র সেরা প্র্যাকটিস সাইট, সম্পূর্ণ ফ্রি</li>
+          <li><strong>Neetcode.io:</strong> সমস্যাগুলো বিষয়ভিত্তিক সাজানো, ভিডিও সমাধান সহ ফ্রি</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Algorithm -->
+    <div class="topic-card tc-red">
+      <div class="topic-title">
+        <div class="topic-icon" style="background:rgba(232,57,74,0.2);">🔬</div>
+        মডিউল ৬ — অ্যালগরিদম পরিচিতি
+      </div>
+      <div class="topic-subtitle">Introduction to Algorithm — Graph, DP &amp; Advanced Topics</div>
+
+      <div class="explanation">
+        <strong>অ্যালগরিদম কী?</strong> অ্যালগরিদম হলো সমস্যা সমাধানের ধাপে ধাপে পদ্ধতি। রান্নার রেসিপির মতো — উপকরণ (ডেটা) আছে, এখন কী ক্রমে কী করতে হবে সেটাই অ্যালগরিদম। এই পর্বে তুমি Graph (নেটওয়ার্ক) ও Dynamic Programming (স্মার্ট সিদ্ধান্ত গ্রহণ) শিখবে।
+      </div>
+
+      <div class="learn-grid">
+        <div class="learn-box">
+          <h4>📌 গ্রাফ অ্যালগরিদম</h4>
+          <ul>
+            <li>Graph কী — নোড ও এজ</li>
+            <li>BFS — প্রস্থ অনুযায়ী খোঁজা</li>
+            <li>DFS — গভীরতায় খোঁজা</li>
+            <li>Dijkstra — সংক্ষিপ্ততম পথ</li>
+            <li>Bellman-Ford — ঋণাত্মক ওজন</li>
+            <li>Floyd-Warshall — সব পথের দূরত্ব</li>
+            <li>Minimum Spanning Tree</li>
+          </ul>
+        </div>
+        <div class="learn-box">
+          <h4>📌 ডায়নামিক প্রোগ্রামিং</h4>
+          <ul>
+            <li>DP কী — পুরনো উত্তর মনে রাখা</li>
+            <li>0-1 Knapsack — ব্যাগ ভরার সমস্যা</li>
+            <li>Unbounded Knapsack</li>
+            <li>LCS — দুটো স্ট্রিংয়ের মিল খোঁজা</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          📖 BFS ও DFS সহজে বোঝো <span class="acc-arrow">▼</span>
+        </div>
+        <div class="acc-body">
+          ধরো, তুমি ঢাকা থেকে চট্টগ্রাম যাওয়ার পথ খুঁজছো।<br><br>
+          <strong>BFS (Breadth First Search):</strong> আগে ঢাকার কাছের শহরগুলো দেখো (নারায়ণগঞ্জ, গাজীপুর), তারপর সেগুলোর কাছের শহর। স্তরে স্তরে খোঁজে। সংক্ষিপ্ততম পথ পায়।<br><br>
+          <strong>DFS (Depth First Search):</strong> একটা রাস্তায় গিয়ে শেষ পর্যন্ত যাও, না পেলে ফিরে অন্য রাস্তায় যাও। গভীরে গিয়ে খোঁজে।
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="acc-header" onclick="toggleAcc(this)">
+          📖 Dynamic Programming সহজে বোঝো <span class="acc-arrow">▼</span>
+        </div>
+        <div class="acc-body">
+          DP হলো "স্মার্ট মেমোরি"। ধরো, তোমাকে ৫! (ফ্যাক্টোরিয়াল) বের করতে বলা হলো।<br><br>
+          বোকা পদ্ধতি: ৫×৪×৩×২×১ বারবার হিসাব করো।<br>
+          স্মার্ট পদ্ধতি (DP): ২!=২, ৩!=৬, ৪!=২৪ — এই উত্তরগুলো মনে রাখো। যখন ৫! লাগবে তখন শুধু ৫×৪!=৫×২৪=১২০ করো।<br><br>
+          <strong>Knapsack:</strong> ধরো তোমার ব্যাগে ১০ কেজি ধরে, বিভিন্ন ওজন ও দামের জিনিস আছে। কোন কোন জিনিস নিলে সর্বোচ্চ মূল্য পাবে — এটাই Knapsack সমস্যা।
+        </div>
+      </div>
+
+      <div class="free-box">
+        <div class="free-box-header">
+          <h4>🆓 ফ্রিতে Algorithm শেখার উপায়</h4>
+          <span class="free-badge">FREE</span>
+        </div>
+        <ul>
+          <li><strong>YouTube:</strong> "William Fiset Graph Theory" — সম্পূর্ণ গ্রাফ কোর্স ফ্রি, চমৎকার অ্যানিমেশন</li>
+          <li><strong>YouTube বাংলা:</strong> "Competitive Programming Bangla DP" সার্চ দাও</li>
+          <li><strong>CP-Algorithms.com:</strong> গ্রাফ ও DP-র সব টপিকের বিস্তারিত ব্যাখ্যা, ফ্রি</li>
+          <li><strong>CSES.fi:</strong> Graph ও DP সেকশনের সমস্যাগুলো করো</li>
+          <li><strong>Visualize করো:</strong> visualgo.net — BFS/DFS লাইভ দেখো</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Problem Solving Part 3 -->
+    <div class="topic-card tc-pink">
+      <div class="topic-title">
+        <div class="topic-icon" style="background:rgba(233,30,140,0.2);">🏆</div>
+        মডিউল ৭ — সমস্যা সমাধান (তৃতীয় পর্ব)
+      </div>
+      <div class="topic-subtitle">Problem Solving Part 03 — Advanced Algorithm Practice</div>
+
+      <div class="explanation">
+        এই পর্বে Graph, DP ও DSU দিয়ে আসল প্রতিযোগিতামূলক সমস্যা সমাধান করবে। এখানে পৌঁছাতে পারলে তুমি বাংলাদেশের মধ্যে Top ৫-১০% Programmer-এর মধ্যে চলে আসবে!
+      </div>
+
+      <div class="learn-grid">
+        <div class="learn-box">
+          <h4>📌 অনুশীলন টপিক</h4>
+          <ul>
+            <li>BFS ও DFS দিয়ে সমস্যা</li>
+            <li>Graph Algorithm সমস্যা</li>
+            <li>Bellman-Ford ও Floyd Warshall</li>
+            <li>Knapsack সমস্যা</li>
+            <li>LCS ভেরিয়েশন</li>
+            <li>DSU ও Cycle Detection</li>
+          </ul>
+        </div>
+        <div class="learn-box">
+          <h4>🔑 DSU কী?</h4>
+          <ul>
+            <li>DSU = Disjoint Set Union</li>
+            <li>কোন কোন জিনিস একই গ্রুপে আছে বোঝার পদ্ধতি</li>
+            <li>Cycle আছে কিনা বোঝা যায়</li>
+            <li>Network connectivity বোঝা যায়</li>
+            <li>Kruskal's MST অ্যালগরিদমে ব্যবহার হয়</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="free-box">
+        <div class="free-box-header">
+          <h4>🆓 Advanced Practice রিসোর্স</h4>
+          <span class="free-badge">FREE</span>
+        </div>
+        <ul>
+          <li><strong>Codeforces Div. 2 C ও D প্রশ্ন:</strong> এই লেভেলের সমস্যা করার চেষ্টা করো</li>
+          <li><strong>AtCoder Beginner Contest:</strong> atcoder.jp — জাপানি সাইট কিন্তু মানসম্পন্ন সমস্যা, ফ্রি</li>
+          <li><strong>USACO Guide:</strong> usaco.guide — ধাপে ধাপে শেখার ফ্রি গাইড</li>
+        </ul>
+      </div>
+    </div>
+  </div><!-- end sem2 -->
+
+  <div class="divider"></div>
+
+  <!-- =========================================
+       SEMESTER 3
+  ========================================= -->
+  <div id="sem3">
+    <div class="section-header">
+      <span class="sem-tag sem3">সেমিস্টার ৩</span>
+      <h2>দুটো রাস্তা — তুমি কোনটা বেছে নেবে?</h2>
+      <p>এই সেমিস্টারে তোমার সামনে দুটো পথ: Competitive Programming অথবা Software Development।</p>
+    </div>
+
+    <!-- PATH 1: Competitive Programming -->
+    <div class="topic-card tc-purple">
+      <div class="topic-title">
+        <div class="topic-icon" style="background:rgba(155,89,182,0.2);">🥇</div>
+        পথ ১ — Competitive Programmer হওয়া
+      </div>
+      <div class="topic-subtitle">Path 01: Competitive Programmer <span class="tag tag-cpp">C++</span></div>
+
+      <div class="explanation">
+        <strong>Competitive Programming কী?</strong> এটা হলো প্রোগ্রামিংয়ের প্রতিযোগিতা — Codeforces, CodeChef, ICPC ইত্যাদি। এখানে ভালো করলে গুগল, ফেসবুক, আমাজনে চাকরি পাওয়া সহজ হয়। কিছু কোম্পানি শুধু Competitive Programmer খোঁজে। আর বাংলাদেশে ICPC-তে ভালো করলে বিশ্ব মঞ্চে যাওয়ার সুযোগ আছে।
+      </div>
+
+      <div style="background:var(--bg3);border-radius:12px;padding:20px;margin-bottom:16px;">
+        <div style="font-size:15px;font-weight:700;color:var(--accent);margin-bottom:16px;">📈 Phase 01 — CodeChef-এ ২ Star হওয়া</div>
+        <div class="learn-grid">
+          <div class="learn-box">
+            <h4>📌 টপিক তালিকা</h4>
+            <ul>
+              <li>C++ STL (Vector, Map, Set, Queue, Stack, Pair, Tuple)</li>
+              <li>Two Pointers ও Sliding Window</li>
+              <li>Bit Manipulation</li>
+              <li>Number Theory (GCD, LCM, Prime)</li>
+              <li>Binary Search অ্যাপ্লিকেশন</li>
+            </ul>
+          </div>
+          <div class="learn-box">
+            <h4>💡 STL মানে কী?</h4>
+            <ul>
+              <li>STL = Standard Template Library</li>
+              <li>C++-এর রেডিমেড টুলবক্স</li>
+              <li>Vector = চলমান আকারের Array</li>
+              <li>Map = Dictionary (key → value)</li>
+              <li>Set = নকল ছাড়া তালিকা</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg3);border-radius:12px;padding:20px;margin-bottom:16px;">
+        <div style="font-size:15px;font-weight:700;color:var(--purple);margin-bottom:16px;">📈 Phase 02 — CodeChef ৩ Star + Codeforces Pupil</div>
+        <div class="learn-grid">
+          <div class="learn-box">
+            <h4>📌 উন্নত টপিক</h4>
+            <ul>
+              <li>Sieve of Eratosthenes</li>
+              <li>Binary Exponentiation</li>
+              <li>Fermat's Little Theorem</li>
+              <li>Segment Tree</li>
+              <li>Segment Tree Lazy Propagation</li>
+              <li>String Hashing</li>
+              <li>Recursion ও Backtracking</li>
+            </ul>
+          </div>
+          <div class="learn-box">
+            <h4>🇧🇩 সহজ উদাহরণ</h4>
+            <ul>
+              <li><strong>Sieve:</strong> ১ থেকে ১০০০ পর্যন্ত মৌলিক সংখ্যা দ্রুত বের করো</li>
+              <li><strong>Segment Tree:</strong> বড় তালিকার যেকোনো অংশের যোগ বা সর্বোচ্চ বের করো</li>
+              <li><strong>Backtracking:</strong> Chess board-এ n Queen সাজানো</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="free-box">
+        <div class="free-box-header">
+          <h4>🆓 Competitive Programming ফ্রিতে শেখার পথ</h4>
+          <span class="free-badge">FREE</span>
+        </div>
+        <ul>
+          <li><strong>USACO Guide:</strong> usaco.guide — সম্পূর্ণ ফ্রি, Competitive Programming-এর সেরা গাইড</li>
+          <li><strong>Codeforces Blog:</strong> codeforces.com/blog/entry/57282 — সেরা টিউটোরিয়াল সংকলন</li>
+          <li><strong>CP-Algorithms.com:</strong> Segment Tree, Number Theory সব ফ্রি</li>
+          <li><strong>YouTube:</strong> "Errichto" ও "Colin Galen" — সেরা Competitive Programming চ্যানেল</li>
+          <li><strong>Codeforces Rating:</strong> নিয়মিত contest করো — প্রতি সপ্তাহে ২-৩টা contest হয়, সব ফ্রি</li>
+          <li><strong>Virtual Contest:</strong> পুরনো contest ভার্চুয়ালি দাও — নিজের অগ্রগতি পরিমাপ করো</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PATH 2: Software Developer -->
+    <div class="topic-card tc-blue">
+      <div class="topic-title">
+        <div class="topic-icon" style="background:rgba(79,163,224,0.2);">👨‍💻</div>
+        পথ ২ — Software Developer হওয়া
+      </div>
+      <div class="topic-subtitle">Path 02: Become a Software Developer</div>
+
+      <div class="explanation">
+        <strong>Software Developer কেন?</strong> বাংলাদেশে এই মুহূর্তে সবচেয়ে বেশি চাহিদা এবং আয়ের সুযোগ Software Development-এ। Fiverr, Upwork-এ ফ্রিল্যান্সিং করা যায়, বা দেশ-বিদেশের কোম্পানিতে চাকরি পাওয়া যায়। এই পথে ৪টি কোর্স আছে।
+      </div>
+
+      <!-- Course 1: Python OOP -->
+      <div style="border:1px solid rgba(79,163,224,0.2);border-radius:12px;padding:20px;margin-bottom:16px;">
+        <div style="font-size:15px;font-weight:700;color:var(--blue);margin-bottom:12px;">🐍 কোর্স ০১ — Python দিয়ে Object-Oriented Programming</div>
+        <div class="learn-grid">
+          <div class="learn-box">
+            <h4>📌 কী শিখবে</h4>
+            <ul>
+              <li>Python সিনট্যাক্স ও ডেটা টাইপ</li>
+              <li>Control Flow ও Loop</li>
+              <li>List ও Dictionary</li>
+              <li>File Handling</li>
+              <li>Class ও Object</li>
+              <li>Encapsulation, Abstraction</li>
+              <li>Polymorphism, Inheritance</li>
+            </ul>
+          </div>
+          <div class="learn-box">
+            <h4>🏗️ প্রজেক্ট করবে</h4>
+            <ul>
+              <li>Library Management System (লাইব্রেরি ব্যবস্থাপনা)</li>
+              <li>Movie Ticket Booking (সিনেমার টিকেট বুকিং)</li>
+              <li>Parking Lot Design (গাড়ির পার্কিং সিস্টেম)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="free-box" style="margin-top:12px;">
+          <div class="free-box-header">
+            <h4>🆓 ফ্রি Python রিসোর্স</h4>
+            <span class="free-badge">FREE</span>
+          </div>
+          <ul>
+            <li><strong>YouTube বাংলা:</strong> "Anisul Islam Python Tutorial" — সম্পূর্ণ সিরিজ, ফ্রি</li>
+            <li><strong>Python.org:</strong> অফিশিয়াল ফ্রি ডকুমেন্টেশন ও Tutorial</li>
+            <li><strong>CS50P (Harvard):</strong> cs50.harvard.edu/python — বিশ্বের সেরা ফ্রি Python কোর্স</li>
+            <li><strong>Replit.com:</strong> ব্রাউজারে Python কোড চালাও, ফ্রি</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Course 2: Database -->
+      <div style="border:1px solid rgba(245,166,35,0.2);border-radius:12px;padding:20px;margin-bottom:16px;">
+        <div style="font-size:15px;font-weight:700;color:var(--accent);margin-bottom:12px;">🗄️ কোর্স ০২ — ডেটাবেস (Database)</div>
+        <div class="explanation" style="margin-bottom:12px;">
+          <strong>Database কী?</strong> ভাবো Pathao বা Shohoz-এর মিলিয়ন যাত্রীর তথ্য কোথায় থাকে? Database-এ! এটা শিখলে তুমি যেকোনো অ্যাপের ডেটা সংরক্ষণ ও পরিচালনা করতে পারবে।
+        </div>
+        <div class="learn-grid">
+          <div class="learn-box">
+            <h4>📌 টপিক তালিকা</h4>
+            <ul>
+              <li>Database কীভাবে সাজানো হয়</li>
+              <li>Entity-Relationship Model</li>
+              <li>Relational Data Model</li>
+              <li>Normal Forms (1NF, 2NF, 3NF)</li>
+              <li>SQL Query লেখা</li>
+              <li>Database Administration</li>
+              <li>Indexing ও Hashing</li>
+              <li>PostgreSQL বা MySQL</li>
+            </ul>
+          </div>
+          <div class="learn-box">
+            <h4>🇧🇩 বাস্তব উদাহরণ</h4>
+            <ul>
+              <li>বিকাশ অ্যাকাউন্টের তথ্য কীভাবে সংরক্ষণ হয়</li>
+              <li>Daraz-এর পণ্য তালিকা SQL-এ বানাও</li>
+              <li>ছাত্রের পরীক্ষার ফলাফল Database-এ রাখো</li>
+              <li>Join দিয়ে দুটো টেবিল মেলাও</li>
+            </ul>
+          </div>
+        </div>
+        <div class="free-box" style="margin-top:12px;">
+          <div class="free-box-header">
+            <h4>🆓 ফ্রি Database রিসোর্স</h4>
+            <span class="free-badge">FREE</span>
+          </div>
+          <ul>
+            <li><strong>SQLZoo.net:</strong> ইন্টারেক্টিভ SQL শেখার সেরা ফ্রি সাইট — Browser-এই চালাও</li>
+            <li><strong>YouTube বাংলা:</strong> "Database Management Bangla" সার্চ দাও</li>
+            <li><strong>PostgreSQL Tutorial:</strong> postgresqltutorial.com — ফ্রি ও বিস্তারিত</li>
+            <li><strong>CS50 SQL:</strong> cs50.harvard.edu/sql — Harvard-এর ফ্রি SQL কোর্স</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Course 3: Frontend -->
+      <div style="border:1px solid rgba(232,57,74,0.2);border-radius:12px;padding:20px;margin-bottom:16px;">
+        <div style="font-size:15px;font-weight:700;color:var(--accent2);margin-bottom:12px;">🌐 কোর্স ০৩ — AI-Powered Frontend Development</div>
+        <div class="explanation" style="margin-bottom:12px;">
+          <strong>Frontend কী?</strong> যা তুমি স্ক্রিনে দেখো — বাটন, ছবি, রঙ, লেখা — এটাই Frontend। HTML দিয়ে কাঠামো, CSS দিয়ে সাজানো, JavaScript দিয়ে কার্যকরী করা হয়। আর React হলো এটার আধুনিক পদ্ধতি।
+        </div>
+        <div class="learn-grid">
+          <div class="learn-box">
+            <h4>📌 টপিক তালিকা</h4>
+            <ul>
+              <li>HTML — ওয়েবপেজের কাঠামো</li>
+              <li>CSS — সাজসজ্জা ও ডিজাইন</li>
+              <li>JavaScript — প্রাণ দেওয়া</li>
+              <li>Modern JavaScript (ES6+)</li>
+              <li>React Fundamentals</li>
+              <li>Deployment — ওয়েবে পাবলিশ</li>
+              <li>AI দিয়ে কোড লেখা (Vibe Coding)</li>
+            </ul>
+          </div>
+          <div class="learn-box">
+            <h4>🇧🇩 বাংলা প্রজেক্ট আইডিয়া</h4>
+            <ul>
+              <li>বাংলাদেশের আবহাওয়া অ্যাপ</li>
+              <li>BDT কারেন্সি কনভার্টার ওয়েবসাইট</li>
+              <li>সহজ ই-কমার্স পেজ (Daraz-এর মতো)</li>
+              <li>ব্যক্তিগত পোর্টফোলিও ওয়েবসাইট</li>
+            </ul>
+          </div>
+        </div>
+        <div class="free-box" style="margin-top:12px;">
+          <div class="free-box-header">
+            <h4>🆓 ফ্রি Frontend রিসোর্স</h4>
+            <span class="free-badge">FREE</span>
+          </div>
+          <ul>
+            <li><strong>The Odin Project:</strong> theodinproject.com — Frontend-এর সম্পূর্ণ ফ্রি কোর্স</li>
+            <li><strong>freeCodeCamp.org:</strong> HTML, CSS, JavaScript, React — সব ফ্রি Certificate সহ</li>
+            <li><strong>YouTube বাংলা:</strong> "Anisul Islam Web Development" — বাংলায় দারুণ সিরিজ</li>
+            <li><strong>React Docs:</strong> react.dev — অফিশিয়াল ফ্রি React শেখার গাইড</li>
+            <li><strong>CodePen.io:</strong> ব্রাউজারে HTML/CSS/JS এক্সপেরিমেন্ট করো, ফ্রি</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Course 4: FastAPI -->
+      <div style="border:1px solid rgba(26,188,156,0.2);border-radius:12px;padding:20px;">
+        <div style="font-size:15px;font-weight:700;color:var(--teal);margin-bottom:12px;">⚙️ কোর্স ০৪ — Backend Development (FastAPI)</div>
+        <div class="explanation" style="margin-bottom:12px;">
+          <strong>Backend কী?</strong> Frontend যা দেখায়, Backend সেটা চালায়। bKash বাটন চাপলে তোমার টাকা কাটে — এই লজিক Backend-এ থাকে। FastAPI হলো Python দিয়ে তৈরি আধুনিক ও দ্রুত Backend Framework।
+        </div>
+        <div class="learn-grid">
+          <div class="learn-box">
+            <h4>📌 টপিক তালিকা</h4>
+            <ul>
+              <li>API কী ও কীভাবে কাজ করে</li>
+              <li>FastAPI Framework পরিচিতি</li>
+              <li>CRUD Operations (Create, Read, Update, Delete)</li>
+              <li>JWT Authentication (নিরাপত্তা)</li>
+              <li>Asynchronous Programming</li>
+              <li>Database Integration</li>
+              <li>Cloud Deployment</li>
+              <li>Machine Learning Integration</li>
+            </ul>
+          </div>
+          <div class="learn-box">
+            <h4>🇧🇩 বাস্তব প্রজেক্ট আইডিয়া</h4>
+            <ul>
+              <li>Pathao-র মতো Ride Sharing API</li>
+              <li>খাবার অর্ডার সিস্টেম API</li>
+              <li>ব্লগ সাইটের Backend</li>
+              <li>User Login ও Registration সিস্টেম</li>
+            </ul>
+          </div>
+        </div>
+        <div class="free-box" style="margin-top:12px;">
+          <div class="free-box-header">
+            <h4>🆓 ফ্রি Backend রিসোর্স</h4>
+            <span class="free-badge">FREE</span>
+          </div>
+          <ul>
+            <li><strong>FastAPI Official Docs:</strong> fastapi.tiangolo.com — অফিশিয়াল ফ্রি Tutorial, বাংলা পড়তে Google Translate ব্যবহার করো</li>
+            <li><strong>YouTube:</strong> "FastAPI Tutorial" by Traversy Media বা Corey Schafer — ফ্রি</li>
+            <li><strong>CS50W (Harvard):</strong> cs50.harvard.edu/web — Web Development সম্পূর্ণ ফ্রি কোর্স</li>
+            <li><strong>Render.com বা Railway.app:</strong> ফ্রিতে API Deploy করো</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div><!-- end sem3 -->
+
+  <div class="divider"></div>
+
+  <!-- =========================================
+       MIND MAP
+  ========================================= -->
+  <div id="mindmap">
+    <div class="section-header">
+      <span class="sem-tag" style="background:rgba(245,166,35,0.15);color:var(--accent);border:1px solid rgba(245,166,35,0.3);">🗺️ ভিজ্যুয়াল গাইড</span>
+      <h2>মাইন্ড ম্যাপ — কোর্সের পূর্ণ চিত্র</h2>
+      <p>এই ওয়েব ডায়াগ্রামটা তোমাকে বুঝতে সাহায্য করবে কীভাবে সব বিষয় একে অপরের সাথে যুক্ত।</p>
+    </div>
+
+    <div class="mindmap-container">
+      <div class="mindmap-title">🎯 Phitron কোর্স — সম্পূর্ণ মাইন্ড ম্যাপ</div>
+
+      <div class="mm-center">
+        প্রোগ্রামার<br>হওয়ার<br>যাত্রা 🚀
+      </div>
+
+      <div class="mm-branches">
+
+        <div class="mm-branch" style="border-color:var(--blue);">
+          <div class="mm-branch-title">🔵 সেমিস্টার ১<br>ভিত্তি গড়া</div>
+          <div class="mm-sub">C ভাষা পরিচিতি</div>
+          <div class="mm-sub">Variable, Data Type</div>
+          <div class="mm-sub">if-else, Loop</div>
+          <div class="mm-sub">Array, String</div>
+          <div class="mm-sub">Function, Pointer</div>
+          <div class="mm-sub">Recursion</div>
+          <div class="mm-sub">Problem Solving Part-1</div>
+          <div class="mm-sub">C++ পরিচিতি</div>
+          <div class="mm-sub">STL প্রাথমিক</div>
+        </div>
+
+        <div class="mm-branch" style="border-color:var(--green);">
+          <div class="mm-branch-title">🟢 সেমিস্টার ২<br>DSA ও Algorithm</div>
+          <div class="mm-sub">Time/Space Complexity</div>
+          <div class="mm-sub">Search ও Sort</div>
+          <div class="mm-sub">Linked List</div>
+          <div class="mm-sub">Stack ও Queue</div>
+          <div class="mm-sub">Binary Tree, BST, Heap</div>
+          <div class="mm-sub">Graph (BFS, DFS)</div>
+          <div class="mm-sub">Shortest Path Algorithm</div>
+          <div class="mm-sub">Dynamic Programming</div>
+          <div class="mm-sub">DSU, Cycle Detection</div>
+        </div>
+
+        <div class="mm-branch" style="border-color:var(--purple);">
+          <div class="mm-branch-title">🏆 পথ ১<br>Competitive Programming</div>
+          <div class="mm-sub">C++ STL Advanced</div>
+          <div class="mm-sub">Two Pointers, Sliding Window</div>
+          <div class="mm-sub">Bit Manipulation</div>
+          <div class="mm-sub">Number Theory</div>
+          <div class="mm-sub">Segment Tree</div>
+          <div class="mm-sub">String Hashing</div>
+          <div class="mm-sub">Codeforces Rating বাড়ানো</div>
+          <div class="mm-sub">ICPC অংশগ্রহণ</div>
+        </div>
+
+        <div class="mm-branch" style="border-color:var(--accent2);">
+          <div class="mm-branch-title">💼 পথ ২ ক<br>Python OOP + Database</div>
+          <div class="mm-sub">Python Syntax</div>
+          <div class="mm-sub">OOP (Class, Object)</div>
+          <div class="mm-sub">4 টি মূলনীতি</div>
+          <div class="mm-sub">SQL Database</div>
+          <div class="mm-sub">PostgreSQL / MySQL</div>
+          <div class="mm-sub">3টি Real Project</div>
+        </div>
+
+        <div class="mm-branch" style="border-color:var(--teal);">
+          <div class="mm-branch-title">🌐 পথ ২ খ<br>Frontend + Backend</div>
+          <div class="mm-sub">HTML, CSS, JS</div>
+          <div class="mm-sub">React Framework</div>
+          <div class="mm-sub">FastAPI</div>
+          <div class="mm-sub">API Design (REST)</div>
+          <div class="mm-sub">JWT Authentication</div>
+          <div class="mm-sub">Cloud Deployment</div>
+          <div class="mm-sub">Full Stack প্রজেক্ট</div>
+        </div>
+
+      </div>
+
+      <div style="margin-top:40px;background:var(--bg);border-radius:12px;padding:20px;text-align:center;">
+        <div style="font-size:14px;color:var(--text2);margin-bottom:16px;">🎓 <strong style="color:var(--accent);">কেন্দ্রে কী আঁকবে?</strong> — মাঝখানে একটা বড় বৃত্ত আঁকো, ভেতরে লেখো "প্রোগ্রামার হওয়ার যাত্রা"</div>
+        <div style="font-size:14px;color:var(--text2);margin-bottom:8px;">⭕ <strong style="color:var(--blue);">প্রথম স্তর</strong> — কেন্দ্রের চারপাশে ৩টি বড় বক্স: সেমিস্টার ১, সেমিস্টার ২, সেমিস্টার ৩</div>
+        <div style="font-size:14px;color:var(--text2);">🔹 <strong style="color:var(--green);">দ্বিতীয় স্তর</strong> — প্রতিটি বক্স থেকে শাখা বের করো, প্রতিটি শাখায় টপিকের নাম লেখো</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================
+       ROADMAP
+  ========================================= -->
+  <div id="roadmap" style="padding-bottom:60px;">
+    <div class="section-header">
+      <span class="sem-tag" style="background:rgba(26,188,156,0.15);color:var(--teal);border:1px solid rgba(26,188,156,0.3);">🛣️ ফ্রি রোডম্যাপ</span>
+      <h2>৫০,০০০ টাকা ছাড়াই শেখার সম্পূর্ণ পথ</h2>
+      <p>ধাপে ধাপে এই পথ অনুসরণ করো — একদিন তুমিও পৌঁছে যাবে!</p>
+    </div>
+
+    <div class="roadmap">
+      <h3>📅 মাসওয়ারি পরিকল্পনা (৩৬ সপ্তাহ)</h3>
+
+      <div class="road-step">
+        <div class="road-dot" style="background:rgba(79,163,224,0.2);color:var(--blue);">১-২</div>
+        <div class="road-content">
+          <h4>মাস ১-২: C ভাষা শেখো</h4>
+          <p>Anisul Islam-এর YouTube সিরিজ দেখো + HackerRank-এ C সেকশন শেষ করো। প্রতিদিন ১-২ ঘণ্টা।</p>
+        </div>
+      </div>
+
+      <div class="road-step">
+        <div class="road-dot" style="background:rgba(46,204,113,0.2);color:var(--green);">৩-৪</div>
+        <div class="road-content">
+          <h4>মাস ৩-৪: C++ শেখো + Problem Solving শুরু করো</h4>
+          <p>C++ STL শেখো + Codeforces Div. 4/3-এর সহজ প্রশ্ন দিয়ে শুরু করো।</p>
+        </div>
+      </div>
+
+      <div class="road-step">
+        <div class="road-dot" style="background:rgba(245,166,35,0.2);color:var(--accent);">৫-৭</div>
+        <div class="road-content">
+          <h4>মাস ৫-৭: Data Structure শেখো</h4>
+          <p>Abdul Bari-র Algorithm কোর্স দেখো + visualgo.net-এ Linked List, Tree, Graph দেখো।</p>
+        </div>
+      </div>
+
+      <div class="road-step">
+        <div class="road-dot" style="background:rgba(155,89,182,0.2);color:var(--purple);">৮-১০</div>
+        <div class="road-content">
+          <h4>মাস ৮-১০: Algorithm শেখো + CSES শেষ করো</h4>
+          <p>Graph, DP, Sorting CSES.fi-তে প্র্যাকটিস করো। Codeforces-এ নিয়মিত Contest দাও।</p>
+        </div>
+      </div>
+
+      <div class="road-step">
+        <div class="road-dot" style="background:rgba(26,188,156,0.2);color:var(--teal);">১১+</div>
+        <div class="road-content">
+          <h4>মাস ১১+: তোমার পছন্দের পথ বেছে নাও</h4>
+          <p>🏆 CP পথ: Codeforces Rating বাড়াও, ICPC দেওয়ার চেষ্টা করো<br>💼 Dev পথ: Python+DB+Frontend+FastAPI দিয়ে Full Stack প্রজেক্ট বানাও</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:linear-gradient(135deg,rgba(245,166,35,0.1),rgba(232,57,74,0.05));border:1px solid rgba(245,166,35,0.2);border-radius:16px;padding:28px;margin-top:24px;">
+      <div style="font-family:'Tiro Bangla',serif;font-size:20px;color:var(--accent);margin-bottom:16px;">💪 মনে রাখো — তুমি পারবে!</div>
+      <p style="font-size:15px;color:var(--text2);line-height:2;">
+        দেশের অনেক সফল Programmer আছেন যারা একদম শূন্য থেকে শুরু করে আজ Google, Facebook-এ কাজ করছেন। তাদের সবার একটাই রহস্য — <strong style="color:#fff;">প্রতিদিনের অনুশীলন</strong>। টাকা না থাকলেও চলে, কিন্তু সময় দিতে হবে। প্রতিদিন মাত্র ২ ঘণ্টা দিলে ১ বছরে তুমি অনেকদূর এগিয়ে যাবে। শুরু করো আজই। ভুল করো, ভুল থেকে শেখো — এটাই প্রোগ্রামিং শেখার একমাত্র উপায়। 🚀
+      </p>
+    </div>
+  </div>
+
+</div><!-- end container -->
+
+<footer>
+  <div class="container">
+    <p>তৈরি করা হয়েছে <strong>Phitron</strong> কোর্স আউটলাইন থেকে | সকল ফ্রি রিসোর্স যাচাই করা</p>
+    <p style="margin-top:8px;font-size:12px;opacity:0.6;">এই গাইড সম্পূর্ণ শিক্ষামূলক উদ্দেশ্যে তৈরি — তোমার শেখার সুবিধার জন্য</p>
+  </div>
+</footer>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  // Progress bar
+  window.addEventListener('scroll', () => {
+    const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    document.getElementById('progressBar').style.width = scrolled + '%';
+    document.getElementById('scrollTop').classList.toggle('show', window.scrollY > 400);
+  });
+
+  // Accordion
+  function toggleAcc(header) {
+    const body = header.nextElementSibling;
+    const arrow = header.querySelector('.acc-arrow');
+    body.classList.toggle('open');
+    arrow.classList.toggle('open');
+  }
+
+  // Scroll to section
+  function scrollToId(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  }
+
+  // Animate cards on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.topic-card').forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(card);
+  });
+</script>
+</body>
+</html>
